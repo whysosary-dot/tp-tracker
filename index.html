@@ -862,9 +862,10 @@ window.addEventListener('resize', () => {
 document.getElementById('inDate').value = new Date().toISOString().slice(0, 10);
 document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key === 'Enter') addEntry(); });
 
-// ── Pre-loaded: 삼성전자 ──
+// ── Pre-loaded data (updated 2026-04-02) ──
 (function() {
-  const d = [
+  // ── 삼성전자 (005930) ──
+  const samsung = [
     { date:'2025-10-13', broker:'상상인증권', tp:110000, source:'https://www.opinionnews.co.kr/news/articleView.html?idxno=129691' },
     { date:'2025-10-31', broker:'KB증권', tp:160000, source:'https://kbthink.com/securities-view.html?docId=20251030162833360K' },
     { date:'2025-11-25', broker:'한국투자증권', tp:160000, source:'https://www.hankyung.com/article/202511253209i' },
@@ -881,9 +882,9 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
     { date:'2026-03-10', broker:'유진투자증권', tp:260000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?gicode=A005930' },
     { date:'2026-03-25', broker:'KB증권', tp:320000, source:'https://kbthink.com/securities-view.html?docId=20260324172719670K' },
   ];
-  d.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'삼성전자', ...s }); });
+  samsung.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'삼성전자', ...s }); });
 
-  // ── SK하이닉스 ──
+  // ── SK하이닉스 (000660) ──
   const skh = [
     { date:'2025-10-30', broker:'유진투자증권', tp:690000, source:'https://www.eugenefn.com/common/files/amail/20251030_000660_sophie.yim_103.pdf' },
     { date:'2025-11-01', broker:'SK증권', tp:1000000, source:'https://magazine.hankyung.com/business/article/202601016775b' },
@@ -895,7 +896,7 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
   ];
   skh.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'SK하이닉스', ...s }); });
 
-  // ── 네오위즈 ──
+  // ── 네오위즈 (095660) ──
   const neo = [
     { date:'2025-04-21', broker:'키움증권', tp:30000, source:'https://bbn.kiwoom.com/rfCR11303' },
     { date:'2025-07-18', broker:'메리츠증권', tp:29000, source:'https://markets.hankyung.com/stock/095660/consensus' },
@@ -905,7 +906,7 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
   ];
   neo.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'네오위즈', ...s }); });
 
-  // ── HD한국조선해양 ──
+  // ── HD한국조선해양 (009540) ──
   const hd = [
     { date:'2025-01-08', broker:'KB증권', tp:280000, source:'https://kbthink.com/collect-view/securities-view.html?docId=20250108105058170K' },
     { date:'2025-04-02', broker:'KB증권', tp:280000, source:'https://kbthink.com/collect-view/securities-view.html?docId=20250401094922093K' },
@@ -916,11 +917,62 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
   ];
   hd.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'HD한국조선해양', ...s }); });
 
-  // ── DN오토모티브 ──
+  // ── DN오토모티브 (007340) ──
   const dn = [
     { date:'2022-11-29', broker:'유진투자증권', tp:88000, source:'https://markets.hankyung.com/stock/007340/consensus' },
   ];
   dn.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'DN오토모티브', ...s }); });
+
+  // ── 와이지-원 (019210) ──
+  const yg1 = [
+    { date:'2025-11-10', broker:'키움증권', tp:105000, source:'https://bbn.kiwoom.com/rfCR11711' },
+  ];
+  yg1.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'와이지-원', ...s }); });
+
+  // ── 한화엔진 (082740) ──
+  const hwe = [
+    { date:'2024-08-21', broker:'신한투자증권', tp:17000, source:'https://www.hankyung.com/article/2024082149906' },
+    { date:'2024-11-26', broker:'DS투자증권', tp:20000, source:'https://www.seoulfn.com/news/articleView.html?idxno=539796' },
+    { date:'2025-03-10', broker:'다올투자증권', tp:37000, source:'https://www.g-enews.com/article/Securities/2025/03/20250310075633708644093b5d4e_1' },
+    { date:'2025-10-09', broker:'SKS증권', tp:60000, source:'https://www.sks.co.kr/data1/research/qna_file/20251009161904332_0_ko.pdf' },
+    { date:'2025-11-10', broker:'iM증권', tp:56000, source:'https://www.edaily.co.kr/News/Read?newsId=01984406642364408' },
+    { date:'2025-11-12', broker:'상상인증권', tp:60000, source:'https://www.newsis.com/view/NISX20251112_0003399219' },
+    { date:'2026-01-16', broker:'메리츠증권', tp:59000, source:'https://www.edaily.co.kr/News/Read?newsId=02315686645318376' },
+    { date:'2026-01-21', broker:'SK증권', tp:72000, source:'https://www.mt.co.kr/stock/2026/01/21/2026012107563428493' },
+    { date:'2026-01-22', broker:'한국투자증권', tp:64000, source:'https://www.etoday.co.kr/news/view/2513958' },
+    { date:'2026-02-10', broker:'상상인증권', tp:67000, source:'https://markets.hankyung.com/stock/082740/consensus' },
+  ];
+  hwe.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'한화엔진', ...s }); });
+
+  // ── 시프트업 (462870) ──
+  const shift = [
+    { date:'2025-02-11', broker:'메리츠증권', tp:90000, source:'https://www.newspim.com/news/view/20250211000161' },
+    { date:'2025-02-11', broker:'하나증권', tp:95000, source:'https://www.newspim.com/news/view/20250211000199' },
+    { date:'2025-03-26', broker:'KB증권', tp:80000, source:'https://kbthink.com/collect-view/securities-view.html?docId=20250324145857300K' },
+    { date:'2025-05-26', broker:'삼성증권', tp:58000, source:'https://www.samsungpop.com/common.do?cmd=down&contentType=application/pdf&inlineYn=Y&saveKey=research.pdf' },
+    { date:'2025-05-29', broker:'NH투자증권', tp:70000, source:'https://m.news.nate.com/view/20250529n07445' },
+    { date:'2025-06-02', broker:'DS투자증권', tp:60000, source:'https://news.nate.com/view/20250602n05075' },
+    { date:'2025-06-16', broker:'하나증권', tp:86000, source:'https://www.businesspost.co.kr/BP?command=article_view&num=399152' },
+    { date:'2025-07-01', broker:'KB증권', tp:65000, source:'https://kbthink.com/securities-view.html?docId=20250627111033973K' },
+    { date:'2025-07-08', broker:'현대차증권', tp:60000, source:'https://news.nate.com/view/20250708n26175' },
+    { date:'2025-08-12', broker:'NH투자증권', tp:55000, source:'https://www.sedaily.com/NewsView/2GWLIVT6WP' },
+    { date:'2025-08-12', broker:'한국투자증권', tp:54000, source:'https://www.sedaily.com/NewsView/2GWLIVT6WP' },
+    { date:'2025-08-12', broker:'삼성증권', tp:40000, source:'https://www.sedaily.com/NewsView/2GWLIVT6WP' },
+    { date:'2025-10-27', broker:'신한투자증권', tp:45000, source:'https://www.hankyung.com/article/2025102732546' },
+    { date:'2025-10-27', broker:'메리츠증권', tp:43000, source:'https://www.businesspost.co.kr/BP?command=article_view&num=426495' },
+    { date:'2026-02-12', broker:'미래에셋증권', tp:48000, source:'https://news.nate.com/view/20260212n06650' },
+    { date:'2026-02-12', broker:'교보증권', tp:48000, source:'https://news.nate.com/view/20260212n16663' },
+  ];
+  shift.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'시프트업', ...s }); });
+
+  // ── SAMG엔터 (419530) ──
+  const samg = [
+    { date:'2025-05-19', broker:'유진투자증권', tp:90000, source:'https://www.mt.co.kr/stock/2025/05/19/2025051908353949525' },
+    { date:'2025-08-20', broker:'유진투자증권', tp:90000, source:'https://www.etoday.co.kr/news/view/2498409' },
+    { date:'2025-11-18', broker:'유진투자증권', tp:70000, source:'https://www.mt.co.kr/stock/2025/11/18/2025111808380135204' },
+    { date:'2026-02-11', broker:'BNK투자증권', tp:83000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A419530' },
+  ];
+  samg.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'SAMG엔터', ...s }); });
 
   updateSuggestions();
   selectStock('삼성전자');
