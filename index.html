@@ -289,22 +289,22 @@ function removeStock(name) {
   render();
 }
 
+function fmtComma(n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+
 function onMyTPChange() {
   if (!activeStock) return;
-  const raw = document.getElementById('myTP').value.replace(/,/g, '');
-  const num = parseFloat(raw) || null;
-  myTargets[activeStock] = num;
-  // 커서 위치 보존하며 콤마 포맷팅
   const el = document.getElementById('myTP');
-  const pos = el.selectionStart;
-  const before = el.value.slice(0, pos).replace(/,/g, '').length;
-  if (num) {
-    el.value = num.toLocaleString();
-    // 새 커서 위치 계산
-    let cnt = 0, newPos = 0;
+  const digits = el.value.replace(/[^0-9]/g, '');
+  const num = parseInt(digits, 10) || null;
+  myTargets[activeStock] = num;
+  if (digits) {
+    const posBefore = el.selectionStart;
+    const digitsBefore = el.value.slice(0, posBefore).replace(/[^0-9]/g, '').length;
+    el.value = fmtComma(parseInt(digits, 10));
+    let cnt = 0, newPos = el.value.length;
     for (let i = 0; i < el.value.length; i++) {
       if (el.value[i] !== ',') cnt++;
-      if (cnt === before) { newPos = i + 1; break; }
+      if (cnt === digitsBefore) { newPos = i + 1; break; }
     }
     el.setSelectionRange(newPos, newPos);
   }
@@ -331,7 +331,7 @@ function render() {
     </div>`
   ).join('');
 
-  document.getElementById('myTP').value = myTargets[activeStock] ? myTargets[activeStock].toLocaleString() : '';
+  document.getElementById('myTP').value = myTargets[activeStock] ? fmtComma(myTargets[activeStock]) : '';
   const items = entries.filter(e => e.stock === activeStock).sort((a,b) => a.date.localeCompare(b.date));
 
   document.getElementById('entryCount').textContent = entries.length + '건';
