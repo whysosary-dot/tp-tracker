@@ -980,6 +980,12 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
   ];
   samg.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'SAMG엔터', ...s }); });
 
+  // ── 한라IMS (092460) ──
+  const halla = [
+    { date:'2025-09-08', broker:'신영증권', tp:26000, source:'https://www.etoday.co.kr/news/view/2503999' },
+  ];
+  halla.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'한라IMS', ...s }); });
+
   updateSuggestions();
   selectStock('삼성전자');
 })();
