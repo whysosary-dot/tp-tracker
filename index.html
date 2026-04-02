@@ -250,8 +250,11 @@
 <script>
 let entries = [];
 let myTargets = {};
+try { const s = localStorage.getItem('tp-myTargets'); if (s) myTargets = JSON.parse(s); } catch(e) {}
 let activeStock = null;
 let chart = null;
+
+function saveMyTargets() { try { localStorage.setItem('tp-myTargets', JSON.stringify(myTargets)); } catch(e) {} }
 
 function addEntry() {
   const stock = document.getElementById('inStock').value.trim();
@@ -284,7 +287,7 @@ function selectStock(name) { activeStock = name; render(); }
 
 function removeStock(name) {
   entries = entries.filter(e => e.stock !== name);
-  delete myTargets[name];
+  delete myTargets[name]; saveMyTargets();
   if (activeStock === name) activeStock = getStocks()[0] || null;
   render();
 }
@@ -297,6 +300,7 @@ function onMyTPChange() {
   const digits = el.value.replace(/[^0-9]/g, '');
   const num = parseInt(digits, 10) || null;
   myTargets[activeStock] = num;
+  saveMyTargets();
   if (digits) {
     const posBefore = el.selectionStart;
     const digitsBefore = el.value.slice(0, posBefore).replace(/[^0-9]/g, '').length;
