@@ -862,7 +862,7 @@ window.addEventListener('resize', () => {
 document.getElementById('inDate').value = new Date().toISOString().slice(0, 10);
 document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key === 'Enter') addEntry(); });
 
-// ── Pre-loaded data (updated 2026-04-02) ──
+// ── Pre-loaded data (updated 2026-04-03) ──
 (function() {
   // ── 삼성전자 (005930) ──
   const samsung = [
@@ -882,6 +882,7 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
     { date:'2026-03-10', broker:'유진투자증권', tp:260000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?gicode=A005930' },
     { date:'2026-03-13', broker:'하나증권', tp:300000, source:'https://www.g-enews.com/article/Securities/2026/03/20260313074612102644093b5d4e_1' },
     { date:'2026-03-25', broker:'KB증권', tp:320000, source:'https://kbthink.com/securities-view.html?docId=20260324172719670K' },
+    { date:'2026-04-01', broker:'iM증권', tp:280000, source:'https://markets.hankyung.com/stock/005930/consensus' },
   ];
   samsung.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'삼성전자', ...s }); });
 
@@ -891,11 +892,17 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
     { date:'2025-11-01', broker:'SK증권', tp:1000000, source:'https://magazine.hankyung.com/business/article/202601016775b' },
     { date:'2025-11-15', broker:'NH투자증권', tp:880000, source:'https://magazine.hankyung.com/business/article/202601016775b' },
     { date:'2026-01-14', broker:'하나증권', tp:1120000, source:'https://www.g-enews.com/article/Securities/2026/01/20260114120800466df2f5bc1bc_1' },
+    { date:'2026-01-27', broker:'SK증권', tp:1250000, source:'https://markets.hankyung.com/stock/000660/consensus' },
+    { date:'2026-01-30', broker:'유진투자증권', tp:1170000, source:'https://markets.hankyung.com/stock/000660/consensus' },
+    { date:'2026-02-02', broker:'iM증권', tp:1160000, source:'https://markets.hankyung.com/stock/000660/consensus' },
+    { date:'2026-02-21', broker:'SK증권', tp:1600000, source:'https://markets.hankyung.com/stock/000660/consensus' },
     { date:'2026-02-28', broker:'하나증권', tp:1450000, source:'https://stock1.brokdam.com/sk하이닉스-목표주가-재산정｜상승-여력-분석/' },
     { date:'2026-02-28', broker:'대신증권', tp:1450000, source:'https://marketin.edaily.co.kr/News/ReadE?newsId=01954886645353472' },
+    { date:'2026-03-03', broker:'iM증권', tp:1410000, source:'https://markets.hankyung.com/stock/000660/consensus' },
     { date:'2026-03-15', broker:'KB증권', tp:1700000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A000660' },
     { date:'2026-03-26', broker:'KB증권', tp:1700000, source:'https://kbthink.com/securities-view.html?docId=20260325140420563K' },
     { date:'2026-03-31', broker:'KB증권', tp:1700000, source:'https://www.newspim.com/news/view/20260331000154' },
+    { date:'2026-04-01', broker:'iM증권', tp:1500000, source:'https://markets.hankyung.com/stock/000660/consensus' },
   ];
   skh.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'SK하이닉스', ...s }); });
 
@@ -968,6 +975,7 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
     { date:'2025-10-27', broker:'메리츠증권', tp:43000, source:'https://www.businesspost.co.kr/BP?command=article_view&num=426495' },
     { date:'2026-02-12', broker:'미래에셋증권', tp:48000, source:'https://news.nate.com/view/20260212n06650' },
     { date:'2026-02-12', broker:'교보증권', tp:48000, source:'https://news.nate.com/view/20260212n16663' },
+    { date:'2026-02-13', broker:'한국투자증권', tp:45000, source:'http://www.dailyinvest.kr/news/articleView.html?idxno=70112' },
   ];
   shift.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'시프트업', ...s }); });
 
@@ -977,6 +985,7 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
     { date:'2025-08-20', broker:'유진투자증권', tp:90000, source:'https://www.etoday.co.kr/news/view/2498409' },
     { date:'2025-11-18', broker:'유진투자증권', tp:70000, source:'https://www.mt.co.kr/stock/2025/11/18/2025111808380135204' },
     { date:'2026-02-11', broker:'BNK투자증권', tp:83000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A419530' },
+    { date:'2026-02-12', broker:'유진투자증권', tp:70000, source:'https://marketin.edaily.co.kr/News/ReadE?newsId=02801126645349864' },
   ];
   samg.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'SAMG엔터', ...s }); });
 
