@@ -234,7 +234,7 @@
 
       <div class="my-price-bar">
         <label>★ 내 목표주가</label>
-        <input type="number" id="myTP" placeholder="0" oninput="onMyTPChange()">
+        <input type="text" id="myTP" placeholder="0" oninput="onMyTPChange()" inputmode="numeric">
         <div class="gap-info" id="gapInfo"></div>
       </div>
 
@@ -291,8 +291,25 @@ function removeStock(name) {
 
 function onMyTPChange() {
   if (!activeStock) return;
-  myTargets[activeStock] = parseFloat(document.getElementById('myTP').value) || null;
-  render();
+  const raw = document.getElementById('myTP').value.replace(/,/g, '');
+  const num = parseFloat(raw) || null;
+  myTargets[activeStock] = num;
+  // 커서 위치 보존하며 콤마 포맷팅
+  const el = document.getElementById('myTP');
+  const pos = el.selectionStart;
+  const before = el.value.slice(0, pos).replace(/,/g, '').length;
+  if (num) {
+    el.value = num.toLocaleString();
+    // 새 커서 위치 계산
+    let cnt = 0, newPos = 0;
+    for (let i = 0; i < el.value.length; i++) {
+      if (el.value[i] !== ',') cnt++;
+      if (cnt === before) { newPos = i + 1; break; }
+    }
+    el.setSelectionRange(newPos, newPos);
+  }
+  renderChart(entries.filter(e => e.stock === activeStock).sort((a,b) => a.date.localeCompare(b.date)));
+  renderGap(entries.filter(e => e.stock === activeStock).sort((a,b) => a.date.localeCompare(b.date)));
 }
 
 function render() {
@@ -314,7 +331,7 @@ function render() {
     </div>`
   ).join('');
 
-  document.getElementById('myTP').value = myTargets[activeStock] || '';
+  document.getElementById('myTP').value = myTargets[activeStock] ? myTargets[activeStock].toLocaleString() : '';
   const items = entries.filter(e => e.stock === activeStock).sort((a,b) => a.date.localeCompare(b.date));
 
   document.getElementById('entryCount').textContent = entries.length + '건';
