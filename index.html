@@ -368,12 +368,12 @@ function renderGap(items) {
   const myTP = myTargets[activeStock];
   const info = document.getElementById('gapInfo');
   if (!myTP || items.length === 0) { info.innerHTML = ''; return; }
-  const avg = Math.round(items.map(e => e.tp).reduce((a,b) => a+b, 0) / items.length);
-  const diff = ((myTP - avg) / avg * 100).toFixed(1);
+  const latest = items[items.length - 1].tp;
+  const diff = ((myTP - latest) / latest * 100).toFixed(1);
   let cls = 'even', sign = '';
   if (diff > 0) { cls = 'up'; sign = '+'; }
   else if (diff < 0) { cls = 'down'; }
-  info.innerHTML = `컨센 평균 대비 <span class="${cls}">${sign}${diff}%</span>`;
+  info.innerHTML = `최신 컨센 대비 <span class="${cls}">${sign}${diff}%</span>`;
 }
 
 // ── Chart ──
