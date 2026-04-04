@@ -862,7 +862,7 @@ window.addEventListener('resize', () => {
 document.getElementById('inDate').value = new Date().toISOString().slice(0, 10);
 document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key === 'Enter') addEntry(); });
 
-// ── Pre-loaded data (updated 2026-04-03) ──
+// ── Pre-loaded data (updated 2026-04-04) ──
 (function() {
   // ── 삼성전자 (005930) ──
   const samsung = [
@@ -877,8 +877,10 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
     { date:'2026-01-09', broker:'유안타증권', tp:172000, source:'https://needinfo.co.kr/삼성전자-주가-전망-증권사-7개사-2026년-삼성전자-목표/' },
     { date:'2026-01-09', broker:'하나증권', tp:155000, source:'https://needinfo.co.kr/삼성전자-주가-전망-증권사-7개사-2026년-삼성전자-목표/' },
     { date:'2026-02-23', broker:'대신증권', tp:270000, source:'https://money2.daishin.com/PDF/Out/intranet_data/product/researchcenter/report/2026/02/56665_260223_sec.pdf' },
+    { date:'2026-02-23', broker:'NH투자증권', tp:250000, source:'https://www.newspim.com/news/view/20260223000246' },
     { date:'2026-03-03', broker:'키움증권', tp:260000, source:'https://bbn.kiwoom.com/rfCR11958' },
     { date:'2026-03-03', broker:'SK증권', tp:260000, source:'https://alphasquare.co.kr/home/insight/posts/36629275-17c5-442e-9379-8064dc091d2f' },
+    { date:'2026-03-05', broker:'미래에셋증권', tp:275000, source:'https://www.newsis.com/view/NISX20260305_0003535442' },
     { date:'2026-03-10', broker:'유진투자증권', tp:260000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?gicode=A005930' },
     { date:'2026-03-13', broker:'하나증권', tp:300000, source:'https://www.g-enews.com/article/Securities/2026/03/20260313074612102644093b5d4e_1' },
     { date:'2026-03-25', broker:'KB증권', tp:320000, source:'https://kbthink.com/securities-view.html?docId=20260324172719670K' },
@@ -903,6 +905,7 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
     { date:'2026-03-26', broker:'KB증권', tp:1700000, source:'https://kbthink.com/securities-view.html?docId=20260325140420563K' },
     { date:'2026-03-31', broker:'KB증권', tp:1700000, source:'https://www.newspim.com/news/view/20260331000154' },
     { date:'2026-04-01', broker:'iM증권', tp:1500000, source:'https://markets.hankyung.com/stock/000660/consensus' },
+    { date:'2026-04-01', broker:'미래에셋증권', tp:1540000, source:'https://news.nate.com/view/20260401n18853' },
   ];
   skh.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'SK하이닉스', ...s }); });
 
@@ -925,6 +928,7 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
     { date:'2025-11-04', broker:'하나증권', tp:570000, source:'https://www.etoday.co.kr/news/view/2521686' },
     { date:'2026-01-07', broker:'메리츠증권', tp:600000, source:'https://markets.hankyung.com/stock/009540/consensus' },
     { date:'2026-02-10', broker:'LS증권', tp:510000, source:'https://markets.hankyung.com/stock/009540/consensus' },
+    { date:'2026-04-03', broker:'KB증권', tp:550000, source:'https://www.newspim.com/news/view/20260403000090' },
   ];
   hd.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'HD한국조선해양', ...s }); });
 
