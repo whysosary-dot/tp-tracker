@@ -230,6 +230,75 @@
   }
   .drawer-backdrop.open { display: block; opacity: 1; }
 
+  /* ── Update Log Panel ── */
+  .update-btn {
+    padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600;
+    border: 1px solid var(--border); background: var(--surface);
+    color: var(--dim); cursor: pointer; white-space: nowrap;
+    display: flex; align-items: center; gap: 5px;
+    transition: all .15s;
+  }
+  .update-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(99,102,241,.06); }
+  .update-btn .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #22c55e; flex-shrink: 0;
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .4; }
+  }
+  .update-panel {
+    display: none; position: absolute; top: 100%; right: 0; margin-top: 6px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 0; min-width: 360px; max-width: 420px;
+    box-shadow: 0 12px 36px rgba(0,0,0,.12); z-index: 200;
+    max-height: 70vh; overflow: hidden;
+    animation: slideDown .18s ease-out;
+  }
+  @keyframes slideDown { from { opacity:0; transform: translateY(-8px); } to { opacity:1; transform: translateY(0); } }
+  .update-panel.open { display: block; }
+  .update-panel-header {
+    padding: 14px 16px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(135deg, rgba(99,102,241,.06), rgba(168,85,247,.06));
+  }
+  .update-panel-header h3 {
+    font-size: 14px; font-weight: 700; color: var(--text);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .update-panel-header .updated-at { font-size: 11px; color: var(--dim); font-weight: 400; }
+  .update-panel-body { overflow-y: auto; max-height: calc(70vh - 50px); padding: 8px; }
+  .update-group { margin-bottom: 8px; }
+  .update-group-title {
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    padding: 6px 10px 4px; display: flex; align-items: center; gap: 6px;
+  }
+  .update-group-title .count {
+    font-size: 10px; background: var(--accent); color: #fff;
+    padding: 1px 6px; border-radius: 8px; font-weight: 600;
+  }
+  .update-entry {
+    display: flex; align-items: center; padding: 8px 10px; border-radius: 8px;
+    font-size: 13px; cursor: pointer; transition: background .12s; gap: 8px;
+  }
+  .update-entry:hover { background: var(--surface2); }
+  .update-entry .stock-badge {
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    background: rgba(99,102,241,.08); padding: 2px 8px; border-radius: 6px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .update-entry .broker-date {
+    font-size: 12px; color: var(--dim); flex: 1; min-width: 0;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .update-entry .tp-value {
+    font-size: 13px; font-weight: 700; color: var(--text); white-space: nowrap;
+  }
+  .update-empty {
+    text-align: center; padding: 24px 16px; color: var(--dim); font-size: 13px;
+  }
+
   /* Scrollbar */
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -243,6 +312,8 @@
     .topbar h1 { font-size: 15px; }
     .io-btns { display: none; }
     .menu-toggle { display: flex; }
+    .update-panel { min-width: 0; width: calc(100vw - 32px); right: -8px; max-width: none; }
+    .update-btn span.lbl { display: none; }
 
     .body { flex-direction: column; }
 
@@ -386,6 +457,16 @@
 <div class="topbar">
   <h1>TP Tracker</h1>
   <div class="topbar-right">
+    <button class="update-btn" id="updateLogBtn" onclick="toggleUpdatePanel(event)">
+      <span class="dot"></span><span class="lbl">업데이트 내역</span>
+    </button>
+    <div class="update-panel" id="updatePanel">
+      <div class="update-panel-header">
+        <h3>업데이트 내역</h3>
+        <span class="updated-at" id="updatePanelDate"></span>
+      </div>
+      <div class="update-panel-body" id="updatePanelBody"></div>
+    </div>
     <div class="io-btns">
       <button class="btn" onclick="exportJSON()">저장 (JSON)</button>
       <button class="btn" onclick="document.getElementById('loadFile').click()">불러오기</button>
@@ -861,6 +942,69 @@ window.addEventListener('resize', () => {
 
 document.getElementById('inDate').value = new Date().toISOString().slice(0, 10);
 document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key === 'Enter') addEntry(); });
+
+// ── Update Log ──
+const updateLog = [
+  { date: '2026-04-04', items: [
+    { stock:'삼성전자', broker:'NH투자증권', tp:250000, entryDate:'2026-02-23' },
+    { stock:'삼성전자', broker:'미래에셋증권', tp:275000, entryDate:'2026-03-05' },
+    { stock:'SK하이닉스', broker:'미래에셋증권', tp:1540000, entryDate:'2026-04-01' },
+    { stock:'HD한국조선해양', broker:'KB증권', tp:550000, entryDate:'2026-04-03' },
+  ]},
+  { date: '2026-04-03', items: [
+    { stock:'삼성전자', broker:'iM증권', tp:280000, entryDate:'2026-04-01' },
+    { stock:'SK하이닉스', broker:'iM증권', tp:1500000, entryDate:'2026-04-01' },
+  ]},
+  { date: '2026-04-01', items: [
+    { stock:'삼성전자', broker:'KB증권', tp:320000, entryDate:'2026-03-25' },
+    { stock:'SK하이닉스', broker:'KB증권', tp:1700000, entryDate:'2026-03-31' },
+    { stock:'SK하이닉스', broker:'KB증권', tp:1700000, entryDate:'2026-03-26' },
+    { stock:'삼성전자', broker:'하나증권', tp:300000, entryDate:'2026-03-13' },
+    { stock:'삼성전자', broker:'유진투자증권', tp:260000, entryDate:'2026-03-10' },
+    { stock:'삼성전자', broker:'키움증권', tp:260000, entryDate:'2026-03-03' },
+    { stock:'삼성전자', broker:'SK증권', tp:260000, entryDate:'2026-03-03' },
+    { stock:'삼성전자', broker:'대신증권', tp:270000, entryDate:'2026-02-23' },
+    { stock:'SK하이닉스', broker:'iM증권', tp:1410000, entryDate:'2026-03-03' },
+    { stock:'SK하이닉스', broker:'KB증권', tp:1700000, entryDate:'2026-03-15' },
+  ]},
+];
+
+function toggleUpdatePanel(e) {
+  e.stopPropagation();
+  const panel = document.getElementById('updatePanel');
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open');
+  if (!isOpen) renderUpdatePanel();
+}
+document.addEventListener('click', (e) => {
+  const panel = document.getElementById('updatePanel');
+  if (panel && !panel.contains(e.target) && !document.getElementById('updateLogBtn').contains(e.target)) {
+    panel.classList.remove('open');
+  }
+});
+
+function renderUpdatePanel() {
+  const body = document.getElementById('updatePanelBody');
+  const dateEl = document.getElementById('updatePanelDate');
+  if (!updateLog.length) {
+    body.innerHTML = '<div class="update-empty">업데이트 내역이 없습니다</div>';
+    return;
+  }
+  dateEl.textContent = '최종 ' + updateLog[0].date;
+  body.innerHTML = updateLog.map(log => {
+    const itemsHtml = log.items.map(it =>
+      `<div class="update-entry" onclick="selectStock('${esc(it.stock)}');document.getElementById('updatePanel').classList.remove('open');">
+        <span class="stock-badge">${it.stock}</span>
+        <span class="broker-date">${it.broker} · ${it.entryDate}</span>
+        <span class="tp-value">${it.tp.toLocaleString()}원</span>
+      </div>`
+    ).join('');
+    return `<div class="update-group">
+      <div class="update-group-title">${log.date} 업데이트 <span class="count">+${log.items.length}건</span></div>
+      ${itemsHtml}
+    </div>`;
+  }).join('');
+}
 
 // ── Pre-loaded data (updated 2026-04-04) ──
 (function() {
