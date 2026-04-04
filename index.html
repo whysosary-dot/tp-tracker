@@ -945,6 +945,9 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-04-05', items: [
+    { stock:'시프트업', broker:'SK증권', tp:49000, entryDate:'2025-11-21' },
+  ]},
   { date: '2026-04-04', items: [
     { stock:'삼성전자', broker:'NH투자증권', tp:250000, entryDate:'2026-02-23' },
     { stock:'삼성전자', broker:'미래에셋증권', tp:275000, entryDate:'2026-03-05' },
@@ -1006,7 +1009,7 @@ function renderUpdatePanel() {
   }).join('');
 }
 
-// ── Pre-loaded data (updated 2026-04-04) ──
+// ── Pre-loaded data (updated 2026-04-05) ──
 (function() {
   // ── 삼성전자 (005930) ──
   const samsung = [
@@ -1121,6 +1124,7 @@ function renderUpdatePanel() {
     { date:'2025-08-12', broker:'한화투자증권', tp:55000, source:'http://www.ttlnews.com/news/articleView.html?idxno=3020824' },
     { date:'2025-10-27', broker:'신한투자증권', tp:45000, source:'https://www.hankyung.com/article/2025102732546' },
     { date:'2025-10-27', broker:'메리츠증권', tp:43000, source:'https://www.businesspost.co.kr/BP?command=article_view&num=426495' },
+    { date:'2025-11-21', broker:'SK증권', tp:49000, source:'https://www.etoday.co.kr/news/view/2528042' },
     { date:'2026-02-12', broker:'미래에셋증권', tp:48000, source:'https://news.nate.com/view/20260212n06650' },
     { date:'2026-02-12', broker:'교보증권', tp:48000, source:'https://news.nate.com/view/20260212n16663' },
     { date:'2026-02-13', broker:'한국투자증권', tp:45000, source:'http://www.dailyinvest.kr/news/articleView.html?idxno=70112' },
