@@ -299,6 +299,34 @@
     text-align: center; padding: 24px 16px; color: var(--dim); font-size: 13px;
   }
 
+  /* ── Consensus Chart ── */
+  .consensus-wrap {
+    margin-top: 16px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  .consensus-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .consensus-header h3 {
+    font-size: 14px; font-weight: 700; color: var(--text);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .consensus-header .unit-label {
+    font-size: 11px; color: var(--dim); font-weight: 400;
+  }
+  .consensus-inner { position: relative; width: 100%; height: 220px; }
+  .consensus-empty {
+    display: flex; align-items: center; justify-content: center;
+    height: 100%; color: var(--dim); font-size: 13px;
+  }
+  @media (max-width: 767px) {
+    .consensus-wrap { padding: 12px; margin-top: 12px; }
+    .consensus-inner { height: 180px; }
+    .consensus-header h3 { font-size: 13px; }
+  }
+
   /* Scrollbar */
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -539,6 +567,14 @@
       <div class="chart-wrap">
         <div class="chart-inner"><canvas id="mainChart"></canvas></div>
       </div>
+
+      <div class="consensus-wrap" id="consensusWrap" style="display:none">
+        <div class="consensus-header">
+          <h3>📊 컨센서스 실적 추이</h3>
+          <span class="unit-label" id="consensusUnit"></span>
+        </div>
+        <div class="consensus-inner"><canvas id="consensusChart"></canvas></div>
+      </div>
     </div>
   </div>
 </div>
@@ -554,6 +590,53 @@ let myTargets = {};
 try { const s = localStorage.getItem('tp-myTargets'); if (s) myTargets = JSON.parse(s); } catch(e) {}
 let activeStock = null;
 let chart = null;
+let conChart = null;
+
+// ── Consensus Estimates Data ──
+const consensusData = {
+  '삼성전자': { unit: '조원', items: [
+    { period:'2023A', revenue:258.9, op:6.6 },
+    { period:'2024A', revenue:300.9, op:32.7 },
+    { period:'2025A', revenue:333.6, op:43.6 },
+    { period:'2026E', revenue:500, op:200 },
+    { period:'2027E', revenue:560, op:300 },
+  ]},
+  'SK하이닉스': { unit: '조원', items: [
+    { period:'2023A', revenue:32.8, op:-7.7 },
+    { period:'2024A', revenue:66.2, op:23.5 },
+    { period:'2025A', revenue:95.8, op:44.7 },
+    { period:'2026E', revenue:166, op:100 },
+    { period:'2027E', revenue:200, op:132 },
+  ]},
+  'HD한국조선해양': { unit: '조원', items: [
+    { period:'2023A', revenue:21.8, op:0.8 },
+    { period:'2024A', revenue:25.5, op:1.4 },
+    { period:'2025A', revenue:29.9, op:3.9 },
+    { period:'2026E', revenue:34, op:5.2 },
+  ]},
+  '시프트업': { unit: '억원', items: [
+    { period:'2023A', revenue:1537, op:928 },
+    { period:'2024A', revenue:2242, op:1527 },
+    { period:'2025A', revenue:2942, op:1811 },
+    { period:'2026E', revenue:2330, op:1410 },
+  ]},
+  '한화엔진': { unit: '억원', items: [
+    { period:'2023A', revenue:7843, op:388 },
+    { period:'2024A', revenue:10930, op:993 },
+    { period:'2025A', revenue:14200, op:1600 },
+    { period:'2026E', revenue:17500, op:2200 },
+  ]},
+  'SAMG엔터': { unit: '억원', items: [
+    { period:'2024A', revenue:1173, op:188 },
+    { period:'2025A', revenue:1413, op:227 },
+    { period:'2026E', revenue:1704, op:324 },
+  ]},
+  '네오위즈': { unit: '억원', items: [
+    { period:'2024A', revenue:3300, op:150 },
+    { period:'2025A', revenue:3500, op:200 },
+    { period:'2026E', revenue:3955, op:435 },
+  ]},
+};
 
 function saveMyTargets() { try { localStorage.setItem('tp-myTargets', JSON.stringify(myTargets)); } catch(e) {} }
 
@@ -736,6 +819,7 @@ function render() {
   renderStats(items);
   renderChart(items);
   renderGap(items);
+  renderConsensusChart();
 }
 
 function renderStats(items) {
@@ -886,6 +970,126 @@ function renderChart(items) {
   });
 }
 
+// ── Consensus Chart ──
+function renderConsensusChart() {
+  if (conChart) conChart.destroy();
+  const wrap = document.getElementById('consensusWrap');
+  const data = consensusData[activeStock];
+  if (!data || !data.items || data.items.length === 0) {
+    wrap.style.display = 'none';
+    return;
+  }
+  wrap.style.display = 'block';
+  document.getElementById('consensusUnit').textContent = '단위: ' + data.unit;
+  const mob = isMobile();
+  const labels = data.items.map(d => d.period);
+  const revData = data.items.map(d => d.revenue);
+  const opData = data.items.map(d => d.op);
+  const opmData = data.items.map(d => d.revenue > 0 ? +(d.op / d.revenue * 100).toFixed(1) : 0);
+
+  const revColors = data.items.map(d => d.period.endsWith('E') ? 'rgba(99,102,241,0.45)' : 'rgba(99,102,241,0.8)');
+  const opColors = data.items.map(d => d.period.endsWith('E') ? 'rgba(234,88,12,0.45)' : 'rgba(234,88,12,0.8)');
+  const revBorders = data.items.map(d => d.period.endsWith('E') ? 'rgba(99,102,241,0.6)' : '#6366f1');
+  const opBorders = data.items.map(d => d.period.endsWith('E') ? 'rgba(234,88,12,0.6)' : '#ea580c');
+
+  const ctx = document.getElementById('consensusChart').getContext('2d');
+  conChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: '매출액',
+          data: revData,
+          backgroundColor: revColors,
+          borderColor: revBorders,
+          borderWidth: 1,
+          borderRadius: 4,
+          yAxisID: 'yRev',
+          order: 2,
+        },
+        {
+          label: '영업이익',
+          data: opData,
+          backgroundColor: opColors,
+          borderColor: opBorders,
+          borderWidth: 1,
+          borderRadius: 4,
+          yAxisID: 'yOp',
+          order: 1,
+        },
+        {
+          label: 'OPM %',
+          data: opmData,
+          type: 'line',
+          borderColor: '#22c55e',
+          backgroundColor: 'rgba(34,197,94,0.1)',
+          borderWidth: 2,
+          pointRadius: mob ? 3 : 4,
+          pointBackgroundColor: '#22c55e',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 1.5,
+          yAxisID: 'yOpm',
+          order: 0,
+          fill: false,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: '#7c7c8a', font: { size: mob ? 10 : 12, weight: '600' } }
+        },
+        yRev: {
+          position: 'left',
+          grid: { color: 'rgba(0,0,0,.04)' },
+          title: { display: !mob, text: '매출액 (' + data.unit + ')', color: '#6366f1', font: { size: 11 } },
+          ticks: { color: '#6366f1', font: { size: mob ? 9 : 11 },
+            callback: v => v >= 10000 ? (v/10000).toFixed(0)+'만' : v.toLocaleString()
+          },
+          beginAtZero: true,
+        },
+        yOp: {
+          position: 'right',
+          grid: { display: false },
+          title: { display: !mob, text: '영업이익 (' + data.unit + ')', color: '#ea580c', font: { size: 11 } },
+          ticks: { color: '#ea580c', font: { size: mob ? 9 : 11 },
+            callback: v => v >= 10000 ? (v/10000).toFixed(0)+'만' : v.toLocaleString()
+          },
+          beginAtZero: true,
+        },
+        yOpm: {
+          display: false,
+          min: 0,
+          max: 100,
+        }
+      },
+      plugins: {
+        legend: {
+          labels: { color: '#7c7c8a', font: { size: mob ? 10 : 12 }, usePointStyle: true, padding: mob ? 6 : 12 }
+        },
+        tooltip: {
+          backgroundColor: '#fff',
+          borderColor: '#e0e0e6',
+          borderWidth: 1,
+          titleColor: '#1a1a2e',
+          bodyColor: '#1a1a2e',
+          callbacks: {
+            label: ctx => {
+              if (ctx.dataset.label === 'OPM %') return 'OPM: ' + ctx.parsed.y + '%';
+              return ctx.dataset.label + ': ' + ctx.parsed.y.toLocaleString() + ' ' + data.unit;
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
 function esc(s) { return s.replace(/'/g, "\\'"); }
 
 function updateSuggestions() {
@@ -934,6 +1138,7 @@ window.addEventListener('resize', () => {
     if (chart) {
       const items = entries.filter(e => e.stock === activeStock).sort((a,b) => a.date.localeCompare(b.date));
       renderChart(items);
+      renderConsensusChart();
     }
     // Close drawer on orientation change to desktop
     if (!isMobile()) closeDrawer();
