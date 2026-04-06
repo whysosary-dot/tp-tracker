@@ -960,7 +960,7 @@ function renderConsensusChart() {
   const brokers = [...new Set(conItems.map(e => e.broker || '미지정'))];
   const datasets = [];
 
-  // 각 증권사별 매출액 scatter
+  // 증권사별 scatter (포인트만, 선 없음)
   brokers.forEach((broker, i) => {
     const bItems = conItems.filter(e => (e.broker||'미지정') === broker);
     const revArr = allDates.map(d => { const m = bItems.find(e => e.date === d); return m ? m.revenue : null; });
@@ -970,38 +970,74 @@ function renderConsensusChart() {
     datasets.push({
       label: broker + ' 매출',
       data: revArr,
-      borderColor: col,
-      backgroundColor: col + '30',
-      borderWidth: mob ? 1.5 : 2,
+      borderColor: 'transparent',
+      backgroundColor: col,
+      borderWidth: 0,
       pointRadius: revArr.map(v => v !== null ? (mob ? 4 : 5) : 0),
       pointHoverRadius: mob ? 6 : 8,
       pointBackgroundColor: col,
       pointBorderColor: '#fff',
       pointBorderWidth: 1.5,
       pointStyle: 'circle',
-      spanGaps: true,
-      tension: 0.25,
+      showLine: false,
       fill: false,
       yAxisID: 'yRev',
     });
     datasets.push({
       label: broker + ' OP',
       data: opArr,
-      borderColor: col,
-      backgroundColor: col + '30',
-      borderWidth: mob ? 1.5 : 2,
-      borderDash: [5, 3],
+      borderColor: 'transparent',
+      backgroundColor: col,
+      borderWidth: 0,
       pointRadius: opArr.map(v => v !== null ? (mob ? 4 : 5) : 0),
       pointHoverRadius: mob ? 6 : 8,
       pointBackgroundColor: col,
       pointBorderColor: '#fff',
       pointBorderWidth: 1.5,
       pointStyle: 'rectRot',
-      spanGaps: true,
-      tension: 0.25,
+      showLine: false,
       fill: false,
       yAxisID: 'yOp',
     });
+  });
+
+  // 날짜순 매출 연결선 (실선) — TP 차트 컨센 평균과 동일 방식
+  const revByDate = allDates.map(d => {
+    const vals = conItems.filter(e => e.date === d).map(e => e.revenue);
+    return vals.length ? +(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1) : null;
+  });
+  let lastRev = null;
+  const filledRev = revByDate.map(v => { if(v!==null) lastRev=v; return lastRev; });
+  datasets.unshift({
+    label: '매출 추이',
+    data: filledRev,
+    borderColor: '#6366f1',
+    borderWidth: mob ? 1.5 : 2,
+    pointRadius: revByDate.map(v => v !== null ? (mob ? 1.5 : 2) : 0),
+    pointBackgroundColor: '#6366f1',
+    stepped: 'before',
+    fill: false,
+    yAxisID: 'yRev',
+  });
+
+  // 날짜순 OP 연결선 (점선)
+  const opByDate = allDates.map(d => {
+    const vals = conItems.filter(e => e.date === d).map(e => e.op);
+    return vals.length ? +(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1) : null;
+  });
+  let lastOp = null;
+  const filledOp = opByDate.map(v => { if(v!==null) lastOp=v; return lastOp; });
+  datasets.unshift({
+    label: 'OP 추이',
+    data: filledOp,
+    borderColor: '#ea580c',
+    borderWidth: mob ? 1.5 : 2,
+    borderDash: [6, 3],
+    pointRadius: opByDate.map(v => v !== null ? (mob ? 1.5 : 2) : 0),
+    pointBackgroundColor: '#ea580c',
+    stepped: 'before',
+    fill: false,
+    yAxisID: 'yOp',
   });
 
   const ctx = document.getElementById('consensusChart').getContext('2d');
