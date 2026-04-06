@@ -1077,8 +1077,7 @@ function renderConsensusChart() {
       },
       plugins: {
         legend: {
-          display: !mob || brokers.length <= 3,
-          labels: { color: '#7c7c8a', font: { size: mob ? 9 : 11 }, usePointStyle: true, padding: mob ? 6 : 10 }
+          display: false
         },
         tooltip: {
           backgroundColor: '#fff', borderColor: '#e0e0e6', borderWidth: 1,
