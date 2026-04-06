@@ -1004,47 +1004,6 @@ function renderConsensusChart() {
     });
   });
 
-  // 컨센 평균 라인 (매출 & OP)
-  if (conItems.length > 1) {
-    const avgRev = allDates.map(d => {
-      const vals = conItems.filter(e => e.date === d).map(e => e.revenue);
-      return vals.length ? +(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1) : null;
-    });
-    let lastR = null;
-    const filledRev = avgRev.map(v => { if(v!==null) lastR=v; return lastR; });
-
-    const avgOp = allDates.map(d => {
-      const vals = conItems.filter(e => e.date === d).map(e => e.op);
-      return vals.length ? +(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1) : null;
-    });
-    let lastO = null;
-    const filledOp = avgOp.map(v => { if(v!==null) lastO=v; return lastO; });
-
-    datasets.push({
-      label: '컨센 평균 매출',
-      data: filledRev,
-      borderColor: '#6366f1',
-      borderWidth: 2.5,
-      pointRadius: avgRev.map(v => v !== null ? 2 : 0),
-      pointBackgroundColor: '#6366f1',
-      stepped: 'before',
-      fill: false,
-      yAxisID: 'yRev',
-    });
-    datasets.push({
-      label: '컨센 평균 OP',
-      data: filledOp,
-      borderColor: '#ea580c',
-      borderWidth: 2.5,
-      borderDash: [6, 3],
-      pointRadius: avgOp.map(v => v !== null ? 2 : 0),
-      pointBackgroundColor: '#ea580c',
-      stepped: 'before',
-      fill: false,
-      yAxisID: 'yOp',
-    });
-  }
-
   const ctx = document.getElementById('consensusChart').getContext('2d');
   conChart = new Chart(ctx, {
     type: 'line',
