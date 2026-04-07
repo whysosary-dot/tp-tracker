@@ -1537,7 +1537,7 @@ function renderUpdatePanel() {
   }).join('');
 }
 
-// ── Pre-loaded data (updated 2026-04-06) ──
+// ── Pre-loaded data (updated 2026-04-07) ──
 (function() {
   // ── 삼성전자 (005930) ──
   const samsung = [
@@ -1552,15 +1552,15 @@ function renderUpdatePanel() {
     { date:'2026-01-09', broker:'유안타증권', tp:172000, source:'https://needinfo.co.kr/삼성전자-주가-전망-증권사-7개사-2026년-삼성전자-목표/' },
     { date:'2026-01-09', broker:'하나증권', tp:155000, source:'https://needinfo.co.kr/삼성전자-주가-전망-증권사-7개사-2026년-삼성전자-목표/' },
     { date:'2026-02-23', broker:'대신증권', tp:270000, source:'https://money2.daishin.com/PDF/Out/intranet_data/product/researchcenter/report/2026/02/56665_260223_sec.pdf', estYear:'2026E', revenue:537, op:200, q1r:121, q1op:53 },
-    { date:'2026-02-23', broker:'NH투자증권', tp:250000, source:'https://www.newspim.com/news/view/20260223000246', estYear:'2026E', revenue:480, op:170, q1op:40.2 },
+    { date:'2026-02-23', broker:'NH투자증권', tp:250000, source:'https://www.newspim.com/news/view/20260223000246', estYear:'2026E', revenue:480, op:170, q1r:117, q1op:40.2 },
     { date:'2026-03-03', broker:'키움증권', tp:260000, source:'https://bbn.kiwoom.com/rfCR11958', estYear:'2026E', revenue:500, op:200, q1r:125, q1op:43 },
     { date:'2026-03-03', broker:'SK증권', tp:260000, source:'https://alphasquare.co.kr/home/insight/posts/36629275-17c5-442e-9379-8064dc091d2f', estYear:'2026E', revenue:490, op:185 },
-    { date:'2026-03-05', broker:'미래에셋증권', tp:275000, source:'https://www.newsis.com/view/NISX20260305_0003535442', estYear:'2026E', revenue:510, op:195 },
-    { date:'2026-03-10', broker:'유진투자증권', tp:260000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?gicode=A005930', estYear:'2026E', revenue:480, op:180 },
-    { date:'2026-03-13', broker:'하나증권', tp:300000, source:'https://www.g-enews.com/article/Securities/2026/03/20260313074612102644093b5d4e_1', estYear:'2026E', revenue:530, op:220, q1op:38 },
+    { date:'2026-03-05', broker:'미래에셋증권', tp:275000, source:'https://www.newsis.com/view/NISX20260305_0003535442', estYear:'2026E', revenue:510, op:195, q1r:124, q1op:41.3 },
+    { date:'2026-03-10', broker:'유진투자증권', tp:260000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?gicode=A005930', estYear:'2026E', revenue:480, op:180, q1r:111, q1op:31 },
+    { date:'2026-03-13', broker:'하나증권', tp:300000, source:'https://www.g-enews.com/article/Securities/2026/03/20260313074612102644093b5d4e_1', estYear:'2026E', revenue:530, op:220, q1r:122, q1op:38 },
     { date:'2026-03-25', broker:'KB증권', tp:320000, source:'https://kbthink.com/securities-view.html?docId=20260324172719670K', estYear:'2026E', revenue:550, op:220, q1r:120, q1op:40, q2op:51 },
     { date:'2026-04-01', broker:'iM증권', tp:280000, source:'https://markets.hankyung.com/stock/005930/consensus', estYear:'2026E', revenue:500, op:190, q1r:125.2, q1op:45.3 },
-    { date:'2026-04-02', broker:'미래에셋증권', tp:300000, source:'https://www.hellot.net/news/article.html?no=111834', estYear:'2026E', revenue:520, op:251 },
+    { date:'2026-04-02', broker:'미래에셋증권', tp:300000, source:'https://www.hellot.net/news/article.html?no=111834', estYear:'2026E', revenue:520, op:251, q1r:124, q1op:41.3 },
   ];
   samsung.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'삼성전자', ...s }); });
 
@@ -1581,8 +1581,8 @@ function renderUpdatePanel() {
     { date:'2026-03-26', broker:'KB증권', tp:1700000, source:'https://kbthink.com/securities-view.html?docId=20260325140420563K', estYear:'2026E', revenue:175, op:132 },
     { date:'2026-03-31', broker:'KB증권', tp:1700000, source:'https://www.newspim.com/news/view/20260331000154', estYear:'2026E', revenue:177, op:132 },
     { date:'2026-04-01', broker:'iM증권', tp:1500000, source:'https://markets.hankyung.com/stock/000660/consensus', estYear:'2026E', revenue:165, op:100 },
-    { date:'2026-04-01', broker:'미래에셋증권', tp:1540000, source:'https://news.nate.com/view/20260401n18853', estYear:'2026E', revenue:168, op:105 },
-    { date:'2026-04-02', broker:'하나증권', tp:1600000, source:'https://www.news1.kr/finance/general-stock/6122582', estYear:'2026E', revenue:185, op:232, q1r:53.5, q1op:36.9 },
+    { date:'2026-04-01', broker:'미래에셋증권', tp:1540000, source:'https://news.nate.com/view/20260401n18853', estYear:'2026E', revenue:168, op:105, q1r:52.5, q1op:36.7 },
+    { date:'2026-04-02', broker:'하나증권', tp:1600000, source:'https://www.news1.kr/finance/general-stock/6122582', estYear:'2026E', revenue:185, op:232, q1r:53.5, q1op:36.9, q2op:57.4 },
   ];
   skh.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'SK하이닉스', ...s }); });
 
@@ -1603,7 +1603,7 @@ function renderUpdatePanel() {
     { date:'2025-05-23', broker:'키움증권', tp:347000, source:'https://bbn.kiwoom.com/rfCR11387' },
     { date:'2025-10-12', broker:'교보증권', tp:472000, source:'https://eduinfom.com/hd한국조선해양009540-리포트-2025년-10월-12일-목표주가-미국/' },
     { date:'2025-11-04', broker:'하나증권', tp:570000, source:'https://www.etoday.co.kr/news/view/2521686', estYear:'2026E', revenue:31.2, op:4.9 },
-    { date:'2026-01-07', broker:'메리츠증권', tp:600000, source:'https://markets.hankyung.com/stock/009540/consensus', estYear:'2026E', revenue:33.1, op:5.2 },
+    { date:'2026-01-07', broker:'메리츠증권', tp:600000, source:'https://markets.hankyung.com/stock/009540/consensus', estYear:'2026E', revenue:33.1, op:5.2, q1r:8.83, q1op:1.23 },
     { date:'2026-02-10', broker:'LS증권', tp:510000, source:'https://markets.hankyung.com/stock/009540/consensus', estYear:'2026E', revenue:32.5, op:5.0 },
     { date:'2026-04-03', broker:'KB증권', tp:550000, source:'https://www.newspim.com/news/view/20260403000090', estYear:'2026E', revenue:33.3, op:5.3, q1r:8.83, q1op:1.23 },
   ];
@@ -1630,7 +1630,7 @@ function renderUpdatePanel() {
     { date:'2025-11-10', broker:'iM증권', tp:56000, source:'https://www.edaily.co.kr/News/Read?newsId=01984406642364408', estYear:'2026E', revenue:1500, op:180 },
     { date:'2025-11-12', broker:'상상인증권', tp:60000, source:'https://www.newsis.com/view/NISX20251112_0003399219', estYear:'2026E', revenue:1520, op:185 },
     { date:'2026-01-16', broker:'메리츠증권', tp:59000, source:'https://www.edaily.co.kr/News/Read?newsId=02315686645318376', estYear:'2026E', revenue:1550, op:189 },
-    { date:'2026-01-21', broker:'SK증권', tp:72000, source:'https://www.mt.co.kr/stock/2026/01/21/2026012107563428493', estYear:'2026E', revenue:1580, op:195 },
+    { date:'2026-01-21', broker:'SK증권', tp:72000, source:'https://www.mt.co.kr/stock/2026/01/21/2026012107563428493', estYear:'2026E', revenue:1580, op:195, q1r:385, q1op:37, q2r:395, q2op:42, q3r:392, q3op:45, q4r:397, q4op:50 },
     { date:'2026-01-22', broker:'한국투자증권', tp:64000, source:'https://www.etoday.co.kr/news/view/2513958', estYear:'2026E', revenue:1551, op:189 },
     { date:'2026-02-10', broker:'상상인증권', tp:67000, source:'https://markets.hankyung.com/stock/082740/consensus', estYear:'2026E', revenue:1560, op:190 },
   ];
