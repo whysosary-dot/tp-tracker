@@ -367,6 +367,65 @@
     .con-tab { padding: 4px 10px; font-size: 10px; }
   }
 
+  /* ── Quarterly Consensus Table ── */
+  .con-table-wrap {
+    margin-top: 16px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  .con-table-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
+  }
+  .con-table-header h3 {
+    font-size: 14px; font-weight: 700; color: var(--text);
+  }
+  .con-table-tabs { display: flex; gap: 4px; }
+  .con-table-tab {
+    padding: 4px 12px; border-radius: 16px; font-size: 11px; font-weight: 600;
+    border: 1px solid var(--border); background: var(--surface);
+    color: var(--dim); cursor: pointer; transition: all .12s;
+  }
+  .con-table-tab:hover { border-color: var(--accent); color: var(--text); }
+  .con-table-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .con-table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+  }
+  .con-table thead th {
+    padding: 8px 10px; text-align: left; font-size: 11px; font-weight: 600;
+    color: var(--dim); border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+  .con-table tbody td {
+    padding: 8px 10px; border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .con-table tbody tr:last-child td { border-bottom: none; }
+  .con-table tbody tr:hover { background: var(--surface2); }
+  .con-table .col-date { color: var(--dim); font-size: 12px; }
+  .con-table .col-broker { font-weight: 600; }
+  .con-table .col-num { text-align: right; font-variant-numeric: tabular-nums; }
+  .con-table .col-rev { color: #6366f1; font-weight: 600; }
+  .con-table .col-op { color: #ea580c; font-weight: 600; }
+  .con-table-summary {
+    display: flex; gap: 16px; margin-top: 12px; padding: 10px 12px;
+    background: var(--surface2); border-radius: 8px; font-size: 12px;
+    flex-wrap: wrap;
+  }
+  .con-table-summary .sum-item { display: flex; gap: 4px; align-items: center; }
+  .con-table-summary .sum-label { color: var(--dim); }
+  .con-table-summary .sum-val { font-weight: 700; }
+  .con-table-summary .sum-rev { color: #6366f1; }
+  .con-table-summary .sum-op { color: #ea580c; }
+  .con-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  @media (max-width: 767px) {
+    .con-table-wrap { padding: 12px; margin-top: 12px; }
+    .con-table-header h3 { font-size: 13px; }
+    .con-table { font-size: 12px; }
+    .con-table thead th, .con-table tbody td { padding: 6px 8px; }
+    .con-table-tab { padding: 4px 10px; font-size: 10px; }
+  }
+
   /* Scrollbar */
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -618,10 +677,18 @@
 
       <div class="consensus-wrap" id="consensusWrap" style="display:none">
         <div class="consensus-header">
-          <h3>📊 컨센서스 실적 추이</h3>
+          <h3>📊 컨센서스 실적 추이 (연간)</h3>
           <span class="unit-label" id="consensusUnit"></span>
         </div>
         <div class="consensus-inner"><canvas id="consensusChart"></canvas></div>
+      </div>
+
+      <div class="con-table-wrap" id="conTableWrap" style="display:none">
+        <div class="con-table-header">
+          <h3>📋 분기별 실적 컨센서스</h3>
+          <div class="con-table-tabs" id="conTableTabs"></div>
+        </div>
+        <div class="con-table-body" id="conTableBody"></div>
       </div>
     </div>
   </div>
@@ -640,6 +707,7 @@ let activeStock = null;
 let chart = null;
 let conChart = null;
 let activeConTab = 'annual';
+let activeQTab = '1q';
 
 // ── Stock Metadata (단위 등) ──
 // entries 각 항목에 estYear, revenue, op 필드가 있으면 컨센서스 차트에 표시
@@ -840,6 +908,7 @@ function render() {
   renderChart(items);
   renderGap(items);
   renderConsensusChart();
+  renderConTable();
 }
 
 function renderStats(items) {
@@ -1077,16 +1146,25 @@ function renderConStats() {
   function buildCardRow(label, dotClass, items) {
     if (items.length === 0) return '';
     items.sort((a,b) => a.date.localeCompare(b.date));
-    const vals = items.map(e => e.val);
-    const avg = vals.reduce((a,b) => a+b, 0) / vals.length;
-    const max = Math.max(...vals);
-    const min = Math.min(...vals);
+    // 최근 3개월 기준 평균
+    const now = new Date();
+    const threeMonthsAgo = new Date(now);
+    threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+    const cutoff = threeMonthsAgo.toISOString().slice(0,10);
+    const recentItems = items.filter(e => e.date >= cutoff);
+    const avgItems = recentItems.length > 0 ? recentItems : items;
+    const avgVals = avgItems.map(e => e.val);
+    const avg = avgVals.reduce((a,b) => a+b, 0) / avgVals.length;
+    const avgBrokers = [...new Set(avgItems.map(e => e.broker).filter(Boolean))].length;
+
+    const allVals = items.map(e => e.val);
+    const max = Math.max(...allVals);
+    const min = Math.min(...allVals);
     const latest = items[items.length - 1];
-    const brokers = [...new Set(items.map(e => e.broker).filter(Boolean))].length;
 
     return `<div class="con-group-label"><span class="${dotClass}"></span>${label} (${unit})</div>
     <div class="stats-row">
-      <div class="stat-card"><div class="stat-label">컨센서스 평균</div><div class="stat-value">${formatConVal(avg, unit)}</div><div class="stat-sub">${items.length}건 · ${brokers}개 증권사</div></div>
+      <div class="stat-card"><div class="stat-label">컨센서스 평균 <span style="font-size:9px;color:var(--accent)">(3개월)</span></div><div class="stat-value">${formatConVal(avg, unit)}</div><div class="stat-sub">${avgItems.length}건 · ${avgBrokers}개 증권사</div></div>
       <div class="stat-card"><div class="stat-label">최고</div><div class="stat-value">${formatConVal(max, unit)}</div></div>
       <div class="stat-card"><div class="stat-label">최저</div><div class="stat-value">${formatConVal(min, unit)}</div></div>
       <div class="stat-card"><div class="stat-label">최신</div><div class="stat-value">${formatConVal(latest.val, unit)}</div><div class="stat-sub">${latest.date}</div></div>
@@ -1099,6 +1177,95 @@ function renderConStats() {
   if (!html) html = '<div class="con-no-data">해당 분기 추정치 데이터가 없습니다</div>';
 
   document.getElementById('conStatsBody').innerHTML = html;
+}
+
+// ── Quarterly Consensus Table ──
+function selectQTab(q) {
+  activeQTab = q;
+  renderConTable();
+}
+
+function renderConTable() {
+  const wrap = document.getElementById('conTableWrap');
+  const meta = stockMeta[activeStock];
+  if (!meta) { wrap.style.display = 'none'; return; }
+
+  const stockEntries = entries.filter(e => e.stock === activeStock);
+  const hasQ = [1,2,3,4].some(q => stockEntries.some(e => e['q'+q+'r'] != null || e['q'+q+'op'] != null));
+  if (!hasQ) { wrap.style.display = 'none'; return; }
+
+  wrap.style.display = 'block';
+  const unit = meta.unit;
+  const fmt = v => v == null ? '-' : (unit === '조원' ? v.toFixed(1) : Math.round(v).toLocaleString());
+
+  // Build available quarter tabs
+  const qTabs = [];
+  [1,2,3,4].forEach(q => {
+    if (stockEntries.some(e => e['q'+q+'r'] != null || e['q'+q+'op'] != null)) {
+      qTabs.push({ key: q+'q', label: q+'Q' });
+    }
+  });
+  if (!qTabs.find(t => t.key === activeQTab)) activeQTab = qTabs[0].key;
+
+  document.getElementById('conTableTabs').innerHTML = qTabs.map(t =>
+    `<div class="con-table-tab ${t.key === activeQTab ? 'active' : ''}" onclick="selectQTab('${t.key}')">${t.label}</div>`
+  ).join('');
+
+  // Get data for active quarter
+  const qNum = activeQTab.replace('q','');
+  const rKey = 'q'+qNum+'r', oKey = 'q'+qNum+'op';
+  const qItems = stockEntries
+    .filter(e => e[rKey] != null || e[oKey] != null)
+    .sort((a,b) => b.date.localeCompare(a.date)); // newest first
+
+  if (qItems.length === 0) {
+    document.getElementById('conTableBody').innerHTML = '<div class="con-no-data">해당 분기 데이터가 없습니다</div>';
+    return;
+  }
+
+  // Table
+  let html = '<div class="con-table-scroll"><table class="con-table"><thead><tr>';
+  html += '<th>날짜</th><th>증권사</th><th class="col-num">매출 ('+unit+')</th><th class="col-num">영업이익 ('+unit+')</th>';
+  html += '</tr></thead><tbody>';
+  qItems.forEach(e => {
+    html += `<tr>
+      <td class="col-date">${e.date}</td>
+      <td class="col-broker">${e.broker || '-'}</td>
+      <td class="col-num col-rev">${fmt(e[rKey])}</td>
+      <td class="col-num col-op">${fmt(e[oKey])}</td>
+    </tr>`;
+  });
+  html += '</tbody></table></div>';
+
+  // Summary row
+  const revVals = qItems.map(e => e[rKey]).filter(v => v != null);
+  const opVals = qItems.map(e => e[oKey]).filter(v => v != null);
+
+  // 최근 3개월 기준 평균
+  const now = new Date();
+  const cutoff3m = new Date(now); cutoff3m.setMonth(cutoff3m.getMonth() - 3);
+  const cutStr = cutoff3m.toISOString().slice(0,10);
+  const recentRev = qItems.filter(e => e.date >= cutStr && e[rKey] != null).map(e => e[rKey]);
+  const recentOp = qItems.filter(e => e.date >= cutStr && e[oKey] != null).map(e => e[oKey]);
+
+  const avgR = recentRev.length > 0 ? recentRev : revVals;
+  const avgO = recentOp.length > 0 ? recentOp : opVals;
+
+  html += '<div class="con-table-summary">';
+  if (revVals.length) {
+    const avg = avgR.reduce((a,b)=>a+b,0)/avgR.length;
+    html += `<span class="sum-item"><span class="sum-label">매출 평균(3M):</span><span class="sum-val sum-rev">${fmt(avg)}</span></span>`;
+    html += `<span class="sum-item"><span class="sum-label">최고:</span><span class="sum-val sum-rev">${fmt(Math.max(...revVals))}</span></span>`;
+    html += `<span class="sum-item"><span class="sum-label">최저:</span><span class="sum-val sum-rev">${fmt(Math.min(...revVals))}</span></span>`;
+  }
+  if (opVals.length) {
+    html += `<span class="sum-item" style="margin-left:8px"><span class="sum-label">OP 평균(3M):</span><span class="sum-val sum-op">${fmt(avgO.reduce((a,b)=>a+b,0)/avgO.length)}</span></span>`;
+    html += `<span class="sum-item"><span class="sum-label">최고:</span><span class="sum-val sum-op">${fmt(Math.max(...opVals))}</span></span>`;
+    html += `<span class="sum-item"><span class="sum-label">최저:</span><span class="sum-val sum-op">${fmt(Math.min(...opVals))}</span></span>`;
+  }
+  html += '</div>';
+
+  document.getElementById('conTableBody').innerHTML = html;
 }
 
 // ── Consensus Chart (리포트별 매출/영업이익 시계열) ──
