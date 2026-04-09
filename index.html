@@ -1013,6 +1013,14 @@ function renderChart(items) {
     });
   }
 
+  // Compute Y-axis padding for target price chart
+  const allTP = items.map(e => e.tp).filter(v => v != null);
+  const tpMin = Math.min(...allTP);
+  const tpMax = Math.max(...allTP);
+  const tpRange = tpMax - tpMin || tpMax * 0.1;
+  const yPadMin = Math.max(0, Math.floor((tpMin - tpRange * 0.25) / 1000) * 1000);
+  const yPadMax = Math.ceil((tpMax + tpRange * 0.15) / 1000) * 1000;
+
   const ctx = document.getElementById('mainChart').getContext('2d');
   chart = new Chart(ctx, {
     type: 'line',
@@ -1027,6 +1035,8 @@ function renderChart(items) {
           ticks: { color: '#7c7c8a', font: { size: mob ? 10 : 11 }, maxRotation: 45 }
         },
         y: {
+          min: yPadMin,
+          max: yPadMax,
           grid: { color: 'rgba(0,0,0,.05)' },
           ticks: {
             color: '#7c7c8a',
