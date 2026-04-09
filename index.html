@@ -723,6 +723,7 @@ const stockMeta = {
   'DN오토모티브': { unit:'억원' },
   '와이지-원': { unit:'억원' },
   '한라IMS': { unit:'억원' },
+  '엠앤씨솔루션': { unit:'억원' },
 };
 
 function saveMyTargets() { try { localStorage.setItem('tp-myTargets', JSON.stringify(myTargets)); } catch(e) {} }
@@ -1699,6 +1700,17 @@ function renderUpdatePanel() {
     { date:'2025-09-08', broker:'신영증권', tp:26000, source:'https://www.etoday.co.kr/news/view/2503999' },
   ];
   halla.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'한라IMS', ...s }); });
+
+  // ── 엠앤씨솔루션 (484870) ──
+  const mnc = [
+    { date:'2025-03-20', broker:'KB증권', tp:115000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A484870' },
+    { date:'2025-05-28', broker:'KB증권', tp:160000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A484870' },
+    { date:'2025-07-30', broker:'KB증권', tp:190000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A484870' },
+    { date:'2025-10-10', broker:'KB증권', tp:260000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A484870' },
+    { date:'2025-11-26', broker:'KB증권', tp:180000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A484870' },
+    { date:'2026-03-23', broker:'KB증권', tp:150000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A484870', estYear:'2026E', revenue:4401, op:653, q1r:709, q1op:77, q2r:979, q2op:119, q3r:1056, q3op:166 },
+  ];
+  mnc.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'엠앤씨솔루션', ...s }); });
 
   updateSuggestions();
   selectStock('삼성전자');
