@@ -131,7 +131,7 @@
     overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
   }
   .chart-wrap {
-    flex: 1; position: relative; min-height: 520px;
+    flex: 1; position: relative; min-height: 380px;
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 12px; padding: 16px;
     box-shadow: 0 1px 4px rgba(0,0,0,.04);
@@ -477,7 +477,7 @@
 
     /* Chart area */
     .chart-area { padding: 14px 16px; overflow-y: auto; }
-    .chart-wrap { min-height: 420px; padding: 12px; }
+    .chart-wrap { min-height: 300px; padding: 12px; }
 
     /* Stats 2x2 grid */
     .stats-row {
@@ -1013,13 +1013,13 @@ function renderChart(items) {
     });
   }
 
-  // Compute Y-axis padding for target price chart
+  // Compute Y-axis range: tight to data with 5% breathing room
   const allTP = items.map(e => e.tp).filter(v => v != null);
   const tpMin = Math.min(...allTP);
   const tpMax = Math.max(...allTP);
   const tpRange = tpMax - tpMin || tpMax * 0.1;
-  const yPadMin = Math.max(0, Math.floor((tpMin - tpRange * 0.2) / 1000) * 1000);
-  const yPadMax = Math.ceil((tpMax + tpRange * 0.2) / 1000) * 1000;
+  const yPadMin = Math.max(0, Math.floor((tpMin - tpRange * 0.08) / 1000) * 1000);
+  const yPadMax = Math.ceil((tpMax + tpRange * 0.08) / 1000) * 1000;
 
   const ctx = document.getElementById('mainChart').getContext('2d');
   chart = new Chart(ctx, {
