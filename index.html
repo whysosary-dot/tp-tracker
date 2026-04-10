@@ -131,12 +131,12 @@
     overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
   }
   .chart-wrap {
-    flex: 1; position: relative; min-height: 380px;
+    position: relative;
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 12px; padding: 16px;
     box-shadow: 0 1px 4px rgba(0,0,0,.04);
   }
-  .chart-inner { position: relative; width: 100%; height: 100%; }
+  .chart-inner { position: relative; width: 100%; height: 280px; }
 
   /* My price bar */
   .my-price-bar {
@@ -477,7 +477,8 @@
 
     /* Chart area */
     .chart-area { padding: 14px 16px; overflow-y: auto; }
-    .chart-wrap { min-height: 300px; padding: 12px; }
+    .chart-wrap { padding: 12px; }
+    .chart-inner { height: 220px; }
 
     /* Stats 2x2 grid */
     .stats-row {
@@ -519,7 +520,8 @@
     .topbar h1 { font-size: 14px; }
 
     .chart-area { padding: 8px 12px; }
-    .chart-wrap { min-height: 180px; padding: 8px; }
+    .chart-wrap { padding: 8px; }
+    .chart-inner { height: 180px; }
 
     /* Compact stats: single row, smaller */
     .stats-row { gap: 6px; margin-bottom: 8px; }
@@ -564,7 +566,8 @@
     .sidebar-handle { display: none; }
 
     .chart-area { padding: 8px 12px; }
-    .chart-wrap { min-height: 200px; padding: 10px; }
+    .chart-wrap { padding: 10px; }
+    .chart-inner { height: 200px; }
     .stats-row {
       display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px;
       margin-bottom: 8px;
