@@ -1013,13 +1013,13 @@ function renderChart(items) {
     });
   }
 
-  // Compute Y-axis padding for target price chart
+  // Compute Y-axis padding for target price chart (wider range for readability)
   const allTP = items.map(e => e.tp).filter(v => v != null);
   const tpMin = Math.min(...allTP);
   const tpMax = Math.max(...allTP);
-  const tpRange = tpMax - tpMin || tpMax * 0.1;
-  const yPadMin = Math.max(0, Math.floor((tpMin - tpRange * 0.25) / 1000) * 1000);
-  const yPadMax = Math.ceil((tpMax + tpRange * 0.15) / 1000) * 1000;
+  const tpRange = tpMax - tpMin || tpMax * 0.2;
+  const yPadMin = Math.max(0, Math.floor((tpMin - tpRange * 0.6) / 1000) * 1000);
+  const yPadMax = Math.ceil((tpMax + tpRange * 0.4) / 1000) * 1000;
 
   const ctx = document.getElementById('mainChart').getContext('2d');
   chart = new Chart(ctx, {
@@ -1480,6 +1480,30 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-04-10', items: [
+    { stock:'삼성전자', broker:'메리츠증권', tp:250000, entryDate:'2026-04-03' },
+    { stock:'삼성전자', broker:'KB증권', tp:360000, entryDate:'2026-04-08' },
+    { stock:'삼성전자', broker:'DS투자증권', tp:300000, entryDate:'2026-04-08' },
+    { stock:'삼성전자', broker:'상상인증권', tp:250000, entryDate:'2026-04-08' },
+    { stock:'삼성전자', broker:'NH투자증권', tp:290000, entryDate:'2026-04-08' },
+    { stock:'삼성전자', broker:'삼성증권', tp:270000, entryDate:'2026-04-08' },
+    { stock:'삼성전자', broker:'IBK투자증권', tp:350000, entryDate:'2026-04-08' },
+    { stock:'삼성전자', broker:'다올투자증권', tp:350000, entryDate:'2026-04-08' },
+    { stock:'삼성전자', broker:'한화투자증권', tp:300000, entryDate:'2026-04-08' },
+    { stock:'삼성전자', broker:'유안타증권', tp:330000, entryDate:'2026-04-09' },
+    { stock:'SK하이닉스', broker:'키움증권', tp:1300000, entryDate:'2026-04-09' },
+    { stock:'SK하이닉스', broker:'유안타증권', tp:1800000, entryDate:'2026-04-09' },
+    { stock:'SK하이닉스', broker:'흥국증권', tp:1400000, entryDate:'2026-04-09' },
+    { stock:'SK하이닉스', broker:'DS투자증권', tp:1300000, entryDate:'2026-04-09' },
+    { stock:'시프트업', broker:'하나증권', tp:45000, entryDate:'2026-04-08' },
+    { stock:'SAMG엔터', broker:'대신증권', tp:75000, entryDate:'2026-03-10' },
+    { stock:'엠앤씨솔루션', broker:'KB증권', tp:150000, entryDate:'2026-03-23' },
+    { stock:'엠앤씨솔루션', broker:'KB증권', tp:180000, entryDate:'2025-11-26' },
+    { stock:'엠앤씨솔루션', broker:'KB증권', tp:260000, entryDate:'2025-10-10' },
+    { stock:'엠앤씨솔루션', broker:'KB증권', tp:190000, entryDate:'2025-07-30' },
+    { stock:'엠앤씨솔루션', broker:'KB증권', tp:160000, entryDate:'2025-05-28' },
+    { stock:'엠앤씨솔루션', broker:'KB증권', tp:115000, entryDate:'2025-03-20' },
+  ]},
   { date: '2026-04-06', items: [
     { stock:'삼성전자', broker:'미래에셋증권', tp:300000, entryDate:'2026-04-02' },
     { stock:'SK하이닉스', broker:'하나증권', tp:1600000, entryDate:'2026-04-02' },
