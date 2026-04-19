@@ -1477,6 +1477,12 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-04-20', items: [
+    { stock:'SK하이닉스', broker:'대신증권', tp:1700000, entryDate:'2026-04-16' },
+    { stock:'SK하이닉스', broker:'메리츠증권', tp:1700000, entryDate:'2026-04-18' },
+    { stock:'SK하이닉스', broker:'LS증권', tp:1500000, entryDate:'2026-04-20' },
+    { stock:'HD한국조선해양', broker:'키움증권', tp:600000, entryDate:'2026-04-17' },
+  ]},
   { date: '2026-04-16', items: [
     { stock:'삼성전자', broker:'LS증권', tp:270000, entryDate:'2026-04-15' },
     { stock:'삼성전자', broker:'KB증권', tp:360000, entryDate:'2026-04-15' },
@@ -1623,7 +1629,7 @@ function renderUpdatePanel() {
   }).join('');
 }
 
-// ── Pre-loaded data (updated 2026-04-16 auto) ──
+// ── Pre-loaded data (updated 2026-04-20 auto) ──
 (function() {
   // ── 삼성전자 (005930) ──
   const samsung = [
@@ -1709,6 +1715,9 @@ function renderUpdatePanel() {
     { date:'2026-04-13', broker:'미래에셋증권', tp:1540000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A000660' },
     { date:'2026-04-14', broker:'KB증권', tp:1900000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660' },
     { date:'2026-04-15', broker:'IBK투자증권', tp:1800000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660' },
+    { date:'2026-04-16', broker:'대신증권', tp:1700000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A000660' },
+    { date:'2026-04-18', broker:'메리츠증권', tp:1700000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660' },
+    { date:'2026-04-20', broker:'LS증권', tp:1500000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660' },
   ];
   skh.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'SK하이닉스', ...s }); });
 
@@ -1750,6 +1759,7 @@ function renderUpdatePanel() {
     { date:'2026-04-09', broker:'신영증권', tp:610000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A009540' },
     { date:'2026-04-10', broker:'삼성증권', tp:620000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A009540' },
     { date:'2026-04-13', broker:'상상인증권', tp:600000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A009540' },
+    { date:'2026-04-17', broker:'키움증권', tp:600000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A009540' },
   ];
   hd.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'HD한국조선해양', ...s }); });
 
