@@ -1477,6 +1477,10 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-04-21', items: [
+    { stock:'HD한국조선해양', broker:'한국투자증권', tp:530000, entryDate:'2026-04-16' },
+    { stock:'네오위즈', broker:'삼성증권', tp:31000, entryDate:'2026-04-20' },
+  ]},
   { date: '2026-04-20', items: [
     { stock:'SK하이닉스', broker:'대신증권', tp:1700000, entryDate:'2026-04-16' },
     { stock:'SK하이닉스', broker:'메리츠증권', tp:1700000, entryDate:'2026-04-18' },
@@ -1735,6 +1739,7 @@ function renderUpdatePanel() {
     { date:'2026-03-06', broker:'삼성증권', tp:32000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A095660' },
     { date:'2026-03-26', broker:'BNK투자증권', tp:32000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A095660' },
     { date:'2026-04-10', broker:'메리츠증권', tp:29000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A095660' },
+    { date:'2026-04-20', broker:'삼성증권', tp:31000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A095660' },
   ];
   neo.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'네오위즈', ...s }); });
 
@@ -1760,6 +1765,7 @@ function renderUpdatePanel() {
     { date:'2026-04-10', broker:'삼성증권', tp:620000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A009540' },
     { date:'2026-04-13', broker:'상상인증권', tp:600000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A009540' },
     { date:'2026-04-17', broker:'키움증권', tp:600000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A009540' },
+    { date:'2026-04-16', broker:'한국투자증권', tp:530000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A009540' },
   ];
   hd.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'HD한국조선해양', ...s }); });
 
