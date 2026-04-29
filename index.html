@@ -734,6 +734,7 @@ const stockMeta = {
   '삼성SDI': { unit:'억원' },
   '상신이디피': { unit:'억원' },
   '한솔테크닉스': { unit:'억원' },
+  '신흥에스이씨': { unit:'억원' },
 };
 
 function saveMyTargets() { try { localStorage.setItem('tp-myTargets', JSON.stringify(myTargets)); } catch(e) {} }
@@ -1501,6 +1502,8 @@ const updateLog = [
     { stock:'삼성SDI', broker:'한국투자증권', tp:760000, entryDate:'2026-04-29' },
     { stock:'삼성SDI', broker:'삼성증권', tp:740000, entryDate:'2026-04-28' },
     { stock:'삼성SDI', broker:'LS증권', tp:618000, entryDate:'2026-04-29' },
+    { stock:'신흥에스이씨', broker:'유진투자증권', tp:10000, entryDate:'2026-02-26' },
+    { stock:'신흥에스이씨', broker:'삼성증권', tp:7700, entryDate:'2026-03-20' },
   ]},
   { date: '2026-04-28', items: [
     { stock:'삼성전자', broker:'BNK투자증권', tp:280000, entryDate:'2026-04-27' },
@@ -2073,6 +2076,25 @@ function renderUpdatePanel() {
   // 애널리스트 커버리지 시작 시 아래 배열에 추가
   const hansol = [];
   hansol.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'한솔테크닉스', ...s }); });
+
+  // ── 신흥에스이씨 (243840) ──
+  const shinheung = [
+    { date:'2024-05-16', broker:'삼성증권', tp:11000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840' },
+    { date:'2024-07-08', broker:'유진투자증권', tp:14000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840' },
+    { date:'2024-08-16', broker:'삼성증권', tp:10000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840' },
+    { date:'2024-10-04', broker:'유진투자증권', tp:14000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840' },
+    { date:'2025-02-17', broker:'삼성증권', tp:6000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840' },
+    { date:'2025-04-30', broker:'유진투자증권', tp:10000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840' },
+    { date:'2025-05-19', broker:'삼성증권', tp:5000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840' },
+    { date:'2025-08-12', broker:'유진투자증권', tp:10000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840' },
+    { date:'2025-08-18', broker:'삼성증권', tp:5800, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840' },
+    { date:'2025-11-14', broker:'삼성증권', tp:6800, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840' },
+    { date:'2025-11-20', broker:'유진투자증권', tp:10000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840' },
+    { date:'2025-11-24', broker:'유진투자증권', tp:10000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840' },
+    { date:'2026-02-26', broker:'유진투자증권', tp:10000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840', estYear:'2026E', revenue:5038, op:223 },
+    { date:'2026-03-20', broker:'삼성증권', tp:7700, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A243840', estYear:'2026E', revenue:5038, op:223 },
+  ];
+  shinheung.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'신흥에스이씨', ...s }); });
 
   updateSuggestions();
   selectStock('삼성전자');
