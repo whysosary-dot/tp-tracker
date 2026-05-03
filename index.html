@@ -1481,6 +1481,9 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-05-04', items: [
+    { stock:'삼성전자', broker:'하나증권', tp:330000, entryDate:'2026-05-04' },
+  ]},
   { date: '2026-05-01', items: [
     { stock:'삼성전자', broker:'유안타증권', tp:340000, entryDate:'2026-04-30' },
     { stock:'삼성전자', broker:'메리츠증권', tp:290000, entryDate:'2026-04-30' },
@@ -1789,6 +1792,7 @@ function renderUpdatePanel() {
     { date:'2026-04-30', broker:'유안타증권', tp:340000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
     { date:'2026-04-30', broker:'메리츠증권', tp:290000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
     { date:'2026-04-30', broker:'DS투자증권', tp:300000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
+    { date:'2026-05-04', broker:'하나증권', tp:330000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
   ];
   samsung.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'삼성전자', ...s }); });
 
