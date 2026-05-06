@@ -1481,6 +1481,10 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-05-07', items: [
+    { stock:'삼성전자', broker:'교보증권', tp:330000, entryDate:'2026-05-06' },
+    { stock:'한라IMS', broker:'신영증권', tp:28000, entryDate:'2025-12-08' },
+  ]},
   { date: '2026-05-05', items: [
     { stock:'삼성전자', broker:'대신증권', tp:330000, entryDate:'2026-04-30' },
     { stock:'삼성전자', broker:'유진투자증권', tp:360000, entryDate:'2026-05-04' },
@@ -1753,7 +1757,7 @@ function renderUpdatePanel() {
   }).join('');
 }
 
-// ── Pre-loaded data (updated 2026-05-05 auto) ──
+// ── Pre-loaded data (updated 2026-05-07 auto) ──
 (function() {
   // ── 삼성전자 (005930) ──
   const samsung = [
@@ -1825,6 +1829,7 @@ function renderUpdatePanel() {
     { date:'2026-05-04', broker:'한국투자증권', tp:370000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
     { date:'2026-05-04', broker:'iM증권', tp:300000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
     { date:'2026-05-04', broker:'NH투자증권', tp:310000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
+    { date:'2026-05-06', broker:'교보증권', tp:330000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
   ];
   samsung.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'삼성전자', ...s }); });
 
@@ -2042,6 +2047,7 @@ function renderUpdatePanel() {
   // ── 한라IMS (092460) ──
   const halla = [
     { date:'2025-09-08', broker:'신영증권', tp:26000, source:'https://www.etoday.co.kr/news/view/2503999' },
+    { date:'2025-12-08', broker:'신영증권', tp:28000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A092460' },
   ];
   halla.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'한라IMS', ...s }); });
 
