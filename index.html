@@ -1481,6 +1481,17 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-05-12', items: [
+    { stock:'삼성전자', broker:'키움증권', tp:330000, entryDate:'2026-05-11' },
+    { stock:'삼성전자', broker:'KB증권', tp:360000, entryDate:'2026-05-11' },
+    { stock:'삼성전자', broker:'미래에셋증권', tp:400000, entryDate:'2026-05-11' },
+    { stock:'SK하이닉스', broker:'미래에셋증권', tp:2700000, entryDate:'2026-05-11' },
+    { stock:'SK하이닉스', broker:'키움증권', tp:1900000, entryDate:'2026-05-11' },
+    { stock:'HD한국조선해양', broker:'메리츠증권', tp:600000, entryDate:'2026-05-07' },
+    { stock:'네오위즈', broker:'미래에셋증권', tp:26000, entryDate:'2026-05-11' },
+    { stock:'네오위즈', broker:'메리츠증권', tp:25000, entryDate:'2026-05-11' },
+    { stock:'네오위즈', broker:'하나증권', tp:36000, entryDate:'2026-05-12' },
+  ]},
   { date: '2026-05-11', items: [
     { stock:'삼성전자', broker:'LS증권', tp:320000, entryDate:'2026-05-11' },
     { stock:'SK하이닉스', broker:'LS증권', tp:2100000, entryDate:'2026-05-11' },
@@ -1844,6 +1855,9 @@ function renderUpdatePanel() {
     { date:'2026-05-06', broker:'교보증권', tp:330000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
     { date:'2026-05-07', broker:'미래에셋증권', tp:400000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
     { date:'2026-05-11', broker:'LS증권', tp:320000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
+    { date:'2026-05-11', broker:'키움증권', tp:330000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
+    { date:'2026-05-11', broker:'KB증권', tp:360000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
+    { date:'2026-05-11', broker:'미래에셋증권', tp:400000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930' },
   ];
   samsung.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'삼성전자', ...s }); });
 
@@ -1916,6 +1930,8 @@ function renderUpdatePanel() {
     { date:'2026-05-04', broker:'미래에셋증권', tp:2000000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660' },
     { date:'2026-05-07', broker:'미래에셋증권', tp:2700000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660' },
     { date:'2026-05-11', broker:'LS증권', tp:2100000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660' },
+    { date:'2026-05-11', broker:'미래에셋증권', tp:2700000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660' },
+    { date:'2026-05-11', broker:'키움증권', tp:1900000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660' },
   ];
   skh.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'SK하이닉스', ...s }); });
 
@@ -1938,6 +1954,9 @@ function renderUpdatePanel() {
     { date:'2026-04-27', broker:'NH투자증권', tp:26000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A095660' },
     { date:'2026-04-29', broker:'신영증권', tp:36000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A095660' },
     { date:'2026-04-30', broker:'BNK투자증권', tp:32000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A095660' },
+    { date:'2026-05-11', broker:'미래에셋증권', tp:26000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A095660' },
+    { date:'2026-05-11', broker:'메리츠증권', tp:25000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A095660' },
+    { date:'2026-05-12', broker:'하나증권', tp:36000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A095660' },
   ];
   neo.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'네오위즈', ...s }); });
 
@@ -1966,6 +1985,7 @@ function renderUpdatePanel() {
     { date:'2026-04-16', broker:'한국투자증권', tp:530000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A009540' },
     { date:'2026-04-22', broker:'LS증권', tp:550000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A009540' },
     { date:'2026-04-22', broker:'삼성증권', tp:620000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A009540' },
+    { date:'2026-05-07', broker:'메리츠증권', tp:600000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A009540' },
     { date:'2026-05-08', broker:'SK증권', tp:640000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A009540' },
     { date:'2026-05-08', broker:'하나증권', tp:570000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A009540' },
     { date:'2026-05-08', broker:'삼성증권', tp:700000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A009540' },
