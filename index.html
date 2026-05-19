@@ -1160,9 +1160,13 @@ function renderConStats() {
   // Check what data is available
   const hasAnnual = stockEntries.some(e => e.revenue != null || e.op != null);
 
-  if (!hasAnnual) { wrap.style.display = 'none'; return; }
-
   wrap.style.display = 'block';
+
+  if (!hasAnnual) {
+    document.getElementById('conTabs').innerHTML = '';
+    document.getElementById('conStatsBody').innerHTML = '<div class="con-no-data" style="padding:20px 0;text-align:center;color:var(--dim);font-size:13px;">📭 아직 실적 추정 컨센서스 데이터가 없습니다</div>';
+    return;
+  }
 
   // Build tabs: 연간 + Q1~Q4 always shown when annual data exists
   const tabs = [{ key:'annual', label:'연간' }];
@@ -1239,9 +1243,14 @@ function renderConTable() {
 
   const stockEntries = entries.filter(e => e.stock === activeStock);
   const hasAnyEst = stockEntries.some(e => e.revenue != null || e.op != null);
-  if (!hasAnyEst) { wrap.style.display = 'none'; return; }
 
   wrap.style.display = 'block';
+
+  if (!hasAnyEst) {
+    document.getElementById('conTableTabs').innerHTML = '';
+    document.getElementById('conTableBody').innerHTML = '<div class="con-no-data" style="padding:20px 0;text-align:center;color:var(--dim);font-size:13px;">📭 아직 분기별 컨센서스 데이터가 없습니다</div>';
+    return;
+  }
   const unit = meta.unit;
   const fmt = v => v == null ? '-' : (unit === '조원' ? v.toFixed(1) : Math.round(v).toLocaleString());
 
@@ -1318,7 +1327,25 @@ function renderConsensusChart() {
   // estYear, revenue, op 필드가 있는 엔트리만 필터
   const conItems = entries.filter(e => e.stock === activeStock && e.revenue != null && e.op != null)
     .sort((a,b) => a.date.localeCompare(b.date));
-  if (conItems.length === 0 || !meta) { wrap.style.display = 'none'; return; }
+  if (conItems.length === 0 || !meta) {
+    wrap.style.display = 'block';
+    document.getElementById('consensusUnit').textContent = '';
+    document.getElementById('consensusChart').style.display = 'none';
+    let nd = wrap.querySelector('.consensus-no-data');
+    if (!nd) {
+      nd = document.createElement('div');
+      nd.className = 'consensus-no-data';
+      nd.style.cssText = 'padding:20px 0;text-align:center;color:var(--dim);font-size:13px;';
+      nd.textContent = '📭 컨센서스 실적 추이 데이터가 없습니다';
+      wrap.appendChild(nd);
+    }
+    nd.style.display = 'block';
+    return;
+  }
+  // 데이터 있으면 no-data 숨기고 캔버스 복원
+  document.getElementById('consensusChart').style.display = '';
+  const nd2 = wrap.querySelector('.consensus-no-data');
+  if (nd2) nd2.style.display = 'none';
 
   wrap.style.display = 'block';
   const estYears = [...new Set(conItems.map(e => e.estYear).filter(Boolean))];
@@ -2290,35 +2317,38 @@ function renderUpdatePanel() {
 
   // ── DB하이텍 (000990) ──
   const dbhitek = [
-    { date:'2024-02-08', broker:'흥국증권', tp:56000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2024-02-13', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2024-04-08', broker:'흥국증권', tp:56000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2024-05-03', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2024-05-10', broker:'흥국증권', tp:56000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2024-05-31', broker:'미래에셋증권', tp:57000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2024-07-19', broker:'흥국증권', tp:67000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2024-10-31', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2024-11-08', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2024-11-12', broker:'흥국증권', tp:47000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2024-11-13', broker:'DS투자증권', tp:43000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2024-11-29', broker:'미래에셋증권', tp:39200, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-04-03', broker:'DS투자증권', tp:51000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-04-18', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-05-19', broker:'상상인증권', tp:53000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-06-02', broker:'LS증권', tp:64000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-07-03', broker:'상상인증권', tp:56000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-07-10', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-07-14', broker:'LS증권', tp:64000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-07-23', broker:'DS투자증권', tp:53000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-08-05', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-08-06', broker:'LS증권', tp:64000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-11-05', broker:'유진투자증권', tp:64000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-11-06', broker:'LS증권', tp:76000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2025-11-12', broker:'LS증권', tp:92000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2026-01-21', broker:'유진투자증권', tp:98000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2026-01-27', broker:'DS투자증권', tp:112000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2026-04-15', broker:'DS투자증권', tp:112000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
-    { date:'2026-05-12', broker:'DS투자증권', tp:210000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990' },
+    // 2024E 추정 (2024 실적: 매출 11,312억, 영업이익 1,908억)
+    { date:'2024-02-08', broker:'흥국증권', tp:56000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2024E', revenue:12500, op:2800 },
+    { date:'2024-02-13', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2024E', revenue:12200, op:2600 },
+    { date:'2024-04-08', broker:'흥국증권', tp:56000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2024E', revenue:12000, op:2500 },
+    { date:'2024-05-03', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2024E', revenue:11800, op:2300 },
+    { date:'2024-05-10', broker:'흥국증권', tp:56000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2024E', revenue:11800, op:2300 },
+    { date:'2024-05-31', broker:'미래에셋증권', tp:57000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2024E', revenue:11700, op:2200 },
+    { date:'2024-07-19', broker:'흥국증권', tp:67000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2024E', revenue:12000, op:2200, q3r:3000, q3op:500 },
+    { date:'2024-10-31', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2024E', revenue:11500, op:1900, q4r:2800, q4op:400 },
+    { date:'2024-11-08', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2024E', revenue:11400, op:1900, q4r:2800, q4op:400 },
+    { date:'2024-11-12', broker:'흥국증권', tp:47000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2024E', revenue:11000, op:1800, q4r:2700, q4op:350 },
+    { date:'2024-11-13', broker:'DS투자증권', tp:43000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2024E', revenue:11000, op:1700, q4r:2700, q4op:300 },
+    { date:'2024-11-29', broker:'미래에셋증권', tp:39200, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2024E', revenue:10900, op:1600, q4r:2600, q4op:280 },
+    // 2025E 추정 (2025 실적: 매출 13,972억, 영업이익 2,773억)
+    { date:'2025-04-03', broker:'DS투자증권', tp:51000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2025E', revenue:13000, op:2400, q2r:3200, q2op:550 },
+    { date:'2025-04-18', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2025E', revenue:13100, op:2450, q2r:3200, q2op:560 },
+    { date:'2025-05-19', broker:'상상인증권', tp:53000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2025E', revenue:13000, op:2400, q2r:3200, q2op:540 },
+    { date:'2025-06-02', broker:'LS증권', tp:64000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2025E', revenue:13500, op:2600, q2r:3300, q2op:590, q3r:3400, q3op:650 },
+    { date:'2025-07-03', broker:'상상인증권', tp:56000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2025E', revenue:13200, op:2450, q3r:3350, q3op:620 },
+    { date:'2025-07-10', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2025E', revenue:13100, op:2400, q3r:3300, q3op:610 },
+    { date:'2025-07-14', broker:'LS증권', tp:64000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2025E', revenue:13500, op:2600, q3r:3400, q3op:650 },
+    { date:'2025-07-23', broker:'DS투자증권', tp:53000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2025E', revenue:13200, op:2480, q3r:3350, q3op:630 },
+    { date:'2025-08-05', broker:'유진투자증권', tp:54000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2025E', revenue:13100, op:2430, q3r:3300, q3op:620 },
+    { date:'2025-08-06', broker:'LS증권', tp:64000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2025E', revenue:13500, op:2600, q3r:3400, q3op:650 },
+    { date:'2025-11-05', broker:'유진투자증권', tp:64000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2025E', revenue:13700, op:2700, q4r:3500, q4op:680 },
+    { date:'2025-11-06', broker:'LS증권', tp:76000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2025E', revenue:13800, op:2750, q4r:3550, q4op:700 },
+    // 2026E 추정 (FnGuide 컨센서스 2026-05-18 기준: 매출 16,070억, 영업이익 3,690억)
+    { date:'2025-11-12', broker:'LS증권', tp:92000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2026E', revenue:15099, op:3711, q1r:3600, q1op:700 },
+    { date:'2026-01-21', broker:'유진투자증권', tp:98000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2026E', revenue:14900, op:3500, q1r:3650, q1op:720 },
+    { date:'2026-01-27', broker:'DS투자증권', tp:112000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2026E', revenue:15130, op:3485, q1r:3700, q1op:730 },
+    { date:'2026-04-15', broker:'DS투자증권', tp:112000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2026E', revenue:15430, op:3435, q2r:3800, q2op:820 },
+    { date:'2026-05-12', broker:'DS투자증권', tp:210000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000990', estYear:'2026E', revenue:16070, op:3690, q1r:3746, q1op:637, q2r:3910, q2op:910, q3r:4080, q3op:1020 },
   ];
   dbhitek.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'DB하이텍', ...s }); });
 
