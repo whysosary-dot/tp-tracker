@@ -192,7 +192,6 @@
     background: var(--surface); color: var(--text); cursor: pointer;
     font-size: 14px; font-weight: 600; min-width: 160px; transition: all .15s;
   }
-  .stock-select-btn:hover { background: rgba(99,102,241,.06); }
   .stock-select-name { flex: 1; text-align: left; }
   .stock-select-arrow { font-size: 11px; color: var(--dim); transition: transform .2s; }
   .stock-selector.open .stock-select-arrow { transform: rotate(180deg); }
@@ -210,14 +209,19 @@
     cursor: pointer; transition: background .1s; color: var(--text);
     touch-action: manipulation; -webkit-tap-highlight-color: transparent;
   }
-  .stock-dropdown-item:hover { background: var(--surface2); }
   .stock-dropdown-item.active { color: var(--accent); font-weight: 700; background: rgba(99,102,241,.06); }
+  .stock-dropdown-item:active { background: var(--surface2); }
   .stock-dropdown-item .x {
     font-size: 14px; color: var(--dim); padding: 2px 4px;
     border-radius: 3px; opacity: 0; transition: opacity .1s;
   }
-  .stock-dropdown-item:hover .x { opacity: 1; }
-  .stock-dropdown-item .x:hover { color: #e11d48; background: rgba(225,29,72,.08); }
+  /* hover는 실제 마우스 지원 기기에서만 적용 (터치 기기 제외 → iOS 2탭 버그 방지) */
+  @media (hover: hover) {
+    .stock-dropdown-item:hover { background: var(--surface2); }
+    .stock-dropdown-item:hover .x { opacity: 1; }
+    .stock-dropdown-item .x:hover { color: #e11d48; background: rgba(225,29,72,.08); }
+    .stock-select-btn:hover { background: rgba(99,102,241,.06); }
+  }
 
   /* Mobile FAB (리포트 목록 토글) */
   .fab {
