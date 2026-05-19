@@ -888,6 +888,11 @@ function toggleStockDropdown(e) {
   document.getElementById('stockSelector').classList.toggle('open');
 }
 
+function pickStock(name) {
+  document.getElementById('stockSelector').classList.remove('open');
+  selectStock(name);
+}
+
 document.addEventListener('click', (e) => {
   const sel = document.getElementById('stockSelector');
   if (sel && !sel.contains(e.target)) sel.classList.remove('open');
@@ -913,7 +918,7 @@ function render() {
   const sorted = sortStocks(stocks);
   document.getElementById('stockSelectLabel').textContent = activeStock || '종목 선택';
   document.getElementById('stockTabs').innerHTML = sorted.map(s =>
-    `<div class="stock-dropdown-item ${s === activeStock ? 'active' : ''}" onclick="selectStock('${esc(s)}');document.getElementById('stockSelector').classList.remove('open')">
+    `<div class="stock-dropdown-item ${s === activeStock ? 'active' : ''}" onclick="event.stopPropagation();pickStock('${esc(s)}')">
       <span>${s}</span><span class="x" onclick="event.stopPropagation();removeStock('${esc(s)}')">&times;</span>
     </div>`
   ).join('');
