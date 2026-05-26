@@ -1556,6 +1556,9 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-05-27', items: [
+    { stock:'한화엔진', broker:'IBK투자증권', tp:87000, entryDate:'2026-05-26' },
+  ]},
   { date: '2026-05-26', items: [
     { stock:'삼성전자', broker:'한화투자증권', tp:390000, entryDate:'2026-05-22' },
     { stock:'삼성SDI', broker:'현대차증권', tp:820000, entryDate:'2026-04-30' },
@@ -1920,7 +1923,7 @@ function renderUpdatePanel() {
   }).join('');
 }
 
-// ── Pre-loaded data (updated 2026-05-26 auto) ──
+// ── Pre-loaded data (updated 2026-05-27 auto) ──
 (function() {
   // ── 삼성전자 (005930) ──
   const samsung = [
@@ -2209,6 +2212,7 @@ function renderUpdatePanel() {
     { date:'2026-04-30', broker:'한국투자증권', tp:114000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A082740' },
     { date:'2026-05-08', broker:'현대차증권', tp:103000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A082740' },
     { date:'2026-05-20', broker:'상상인증권', tp:96000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A082740' },
+    { date:'2026-05-26', broker:'IBK투자증권', tp:87000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A082740' },
   ];
   hwe.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'한화엔진', ...s }); });
 
