@@ -1556,6 +1556,9 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-06-22', items: [
+    { stock:'와이지-원', broker:'현대차증권', tp:19000, entryDate:'2026-06-19' },
+  ]},
   { date: '2026-06-19', items: [
     { stock:'HD한국조선해양', broker:'다올투자증권', tp:560000, entryDate:'2026-06-16' },
     { stock:'한화엔진', broker:'다올투자증권', tp:112000, entryDate:'2026-06-16' },
@@ -2013,7 +2016,7 @@ function renderUpdatePanel() {
   }).join('');
 }
 
-// ── Pre-loaded data (updated 2026-06-18 auto) ──
+// ── Pre-loaded data (updated 2026-06-22 auto) ──
 (function() {
   // ── 삼성전자 (005930) ──
   const samsung = [
@@ -2319,6 +2322,7 @@ function renderUpdatePanel() {
     { date:'2026-05-20', broker:'한국투자증권', tp:23000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A232140' },
     { date:'2026-05-28', broker:'신한투자증권', tp:24000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Consensus.asp?pGB=1&gicode=A232140' },
     { date:'2026-06-09', broker:'신한투자증권', tp:24000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Consensus.asp?pGB=1&gicode=A232140' },
+    { date:'2026-06-19', broker:'현대차증권', tp:19000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A232140' },
   ];
   yg1.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'와이지-원', ...s }); });
 
