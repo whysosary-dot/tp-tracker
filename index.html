@@ -1556,6 +1556,10 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-06-30', items: [
+    { stock:'시프트업', broker:'하나증권', tp:45000, entryDate:'2026-06-30' },
+    { stock:'삼성SDI', broker:'미래에셋증권', tp:1000000, entryDate:'2026-06-26' },
+  ]},
   { date: '2026-06-29', items: [
     { stock:'삼성전자', broker:'대신증권', tp:560000, entryDate:'2026-06-25' },
     { stock:'삼성전자', broker:'미래에셋증권', tp:550000, entryDate:'2026-06-25' },
@@ -2044,7 +2048,7 @@ function renderUpdatePanel() {
   }).join('');
 }
 
-// ── Pre-loaded data (updated 2026-06-22 auto) ──
+// ── Pre-loaded data (updated 2026-06-30 auto) ──
 (function() {
   // ── 삼성전자 (005930) ──
   const samsung = [
@@ -2439,6 +2443,7 @@ function renderUpdatePanel() {
     { date:'2026-05-27', broker:'키움증권', tp:65000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A462870' },
     { date:'2026-06-08', broker:'하나증권', tp:45000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A462870' },
     { date:'2026-06-15', broker:'키움증권', tp:65000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Consensus.asp?pGB=1&gicode=A462870' },
+    { date:'2026-06-30', broker:'하나증권', tp:45000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A462870' },
   ];
   shift.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'시프트업', ...s }); });
 
@@ -2565,6 +2570,7 @@ function renderUpdatePanel() {
     { date:'2026-06-11', broker:'삼성증권', tp:680000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A006400' },
     { date:'2026-06-24', broker:'유안타증권', tp:913000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Consensus.asp?pGB=1&gicode=A006400' },
     { date:'2026-06-25', broker:'NH투자증권', tp:800000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A006400' },
+    { date:'2026-06-26', broker:'미래에셋증권', tp:1000000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A006400' },
   ];
   sdi.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'삼성SDI', ...s }); });
 
