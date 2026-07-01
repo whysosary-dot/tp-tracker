@@ -1556,6 +1556,9 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-07-02', items: [
+    { stock:'DN오토모티브', broker:'분기컨센', tp:null, entryDate:'2026-07-02', note:'Q2~Q4 분기 컨센서스 추가 (q2r:11102, q2op:1401, q3r:11139, q3op:1397, q4r:11786, q4op:1545)' },
+  ]},
   { date: '2026-07-01', items: [
     { stock:'삼성전자', broker:'분기컨센', tp:null, entryDate:'2026-07-01', note:'Q2~Q4 분기 컨센서스 추가' },
     { stock:'SK하이닉스', broker:'분기컨센', tp:null, entryDate:'2026-07-01', note:'Q2~Q4 분기 컨센서스 추가' },
@@ -2371,7 +2374,7 @@ function renderUpdatePanel() {
   const dn = [
     { date:'2022-11-29', broker:'유진투자증권', tp:88000, source:'https://markets.hankyung.com/stock/007340/consensus' },
     { date:'2026-04-21', broker:'키움증권', tp:50000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A007340' },
-    { date:'2026-06-17', broker:'하나증권', tp:60000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A007340' },
+    { date:'2026-06-17', broker:'하나증권', tp:60000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A007340', q2r:11102, q2op:1401, q3r:11139, q3op:1397, q4r:11786, q4op:1545 },
   ];
   dn.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'DN오토모티브', ...s }); });
 
