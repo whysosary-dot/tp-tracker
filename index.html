@@ -612,14 +612,15 @@
       <div class="update-panel-body" id="updatePanelBody"></div>
     </div>
     <div class="io-btns">
-      <button class="btn" onclick="exportJSON()">저장 (JSON)</button>
+      <button class="btn btn-primary" id="tp-commit-btn" onclick="ghCommitTp()" title="추가한 엔트리·나의 목표가를 GitHub에 커밋">☁️ 커밋 & 푸시</button>
       <button class="btn" onclick="document.getElementById('loadFile').click()">불러오기</button>
       <input type="file" id="loadFile" accept=".json" style="display:none" onchange="importJSON(event)">
       <button class="btn" onclick="exportCSV()">CSV 내보내기</button>
     </div>
     <button class="menu-toggle" onclick="toggleMenu(event)" aria-label="메뉴">⋮</button>
     <div class="io-dropdown" id="ioDropdown">
-      <button class="btn" onclick="exportJSON();closeMenu()">저장 (JSON)</button>
+      <button class="btn btn-primary" id="tp-commit-menu-btn" onclick="ghCommitTp();closeMenu()">☁️ 커밋 & 푸시</button>
+      <button class="btn" onclick="exportJSON();closeMenu()">JSON 내보내기</button>
       <button class="btn" onclick="document.getElementById('loadFile').click();closeMenu()">불러오기</button>
       <button class="btn" onclick="exportCSV();closeMenu()">CSV 내보내기</button>
     </div>
@@ -726,6 +727,10 @@
 let entries = [];
 let myTargets = {};
 try { const s = localStorage.getItem('tp-myTargets'); if (s) myTargets = JSON.parse(s); } catch(e) {}
+// 사용자가 직접 추가한 엔트리 (새로고침에도 유지 + GitHub 커밋 대상)
+let userEntries = [];
+try { const u = localStorage.getItem('tp-userEntries'); if (u) userEntries = JSON.parse(u); } catch(e) {}
+function saveUserEntries() { try { localStorage.setItem('tp-userEntries', JSON.stringify(userEntries)); } catch(e) {} }
 let activeStock = null;
 let chart = null;
 let conChart = null;
@@ -756,6 +761,50 @@ const stockMeta = {
 };
 
 function saveMyTargets() { try { localStorage.setItem('tp-myTargets', JSON.stringify(myTargets)); } catch(e) {} }
+
+/* ── GitHub 커밋 & 푸시 (사용자 추가 엔트리 + 나의 목표가) ── */
+const GH_TP = { OWNER:'whysosary-dot', REPO:'tp-tracker', PATH:'tp-user.json', BRANCH:'main' };
+function getTpPat() { return localStorage.getItem('tp_gh_pat') || localStorage.getItem('sv_github_pat') || ''; }
+
+async function ghTpGet() {
+  const pat = getTpPat();
+  const r = await fetch(`https://api.github.com/repos/${GH_TP.OWNER}/${GH_TP.REPO}/contents/${GH_TP.PATH}?ref=${GH_TP.BRANCH}`,
+    { headers: { Authorization: 'token ' + pat, Accept: 'application/vnd.github.v3+json' } });
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error('GH GET ' + r.status);
+  return r.json();
+}
+
+async function ghCommitTpCore() {
+  const pat = getTpPat();
+  if (!pat) throw new Error('PAT 미설정');
+  const existing = await ghTpGet();
+  // 변경 없으면 커밋 스킵
+  if (existing && existing.content) {
+    try {
+      const prev = JSON.parse(decodeURIComponent(escape(atob(existing.content.replace(/\n/g, '')))));
+      if (JSON.stringify({ u: prev.userEntries || [], m: prev.myTargets || {} }) ===
+          JSON.stringify({ u: userEntries, m: myTargets })) return '변경 없음';
+    } catch (e) {}
+  }
+  const payload = JSON.stringify({ userEntries: userEntries, myTargets: myTargets, saved: new Date().toISOString() }, null, 2);
+  const b64 = btoa(unescape(encodeURIComponent(payload)));
+  const body = { message: 'sync: TP Tracker 사용자 데이터 ' + new Date().toISOString().slice(0, 10), content: b64, branch: GH_TP.BRANCH };
+  if (existing) body.sha = existing.sha;
+  const r = await fetch(`https://api.github.com/repos/${GH_TP.OWNER}/${GH_TP.REPO}/contents/${GH_TP.PATH}`,
+    { method: 'PUT', headers: { Authorization: 'token ' + pat, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  if (!r.ok) { const e = await r.json().catch(() => ({})); throw new Error(e.message || 'GH PUT ' + r.status); }
+  return '커밋 완료';
+}
+
+async function ghCommitTp() {
+  if (!getTpPat()) { alert('GitHub 토큰이 없습니다.\nStock Valuation 대시보드 ⚙️에서 토큰을 저장하면 여기서도 자동으로 사용됩니다.'); return; }
+  if (!confirm('직접 추가한 목표주가 엔트리와 나의 목표가를 GitHub에 커밋 & 푸시할까요?')) return;
+  try {
+    const msg = await ghCommitTpCore();
+    alert(msg === '변경 없음' ? 'ℹ️ 변경된 내용이 없습니다.' : '✅ GitHub 커밋 완료!');
+  } catch (e) { alert('❌ 커밋 실패: ' + e.message); }
+}
 
 /* ── Mobile drawer ── */
 function isMobile() { return window.innerWidth < 768; }
@@ -826,7 +875,10 @@ function addEntry() {
   const tp = parseFloat(document.getElementById('inTP').value);
   const source = document.getElementById('inSource').value.trim();
   if (!stock || !date || !tp) { alert('종목명, 날짜, 목표주가는 필수입니다.'); return; }
-  entries.push({ id: Date.now() + Math.random(), stock, date, broker, tp, source });
+  const newEntry = { id: Date.now() + Math.random(), stock, date, broker, tp, source, _user: true };
+  entries.push(newEntry);
+  userEntries.push(newEntry);
+  saveUserEntries();
   entries.sort((a,b) => a.date.localeCompare(b.date));
   updateSuggestions();
   selectStock(stock);
@@ -835,6 +887,8 @@ function addEntry() {
 
 function removeEntry(id) {
   entries = entries.filter(e => e.id !== id);
+  userEntries = userEntries.filter(e => e.id !== id);
+  saveUserEntries();
   render();
 }
 
@@ -850,6 +904,8 @@ function selectStock(name) { activeStock = name; render(); }
 
 function removeStock(name) {
   entries = entries.filter(e => e.stock !== name);
+  userEntries = userEntries.filter(e => e.stock !== name);
+  saveUserEntries();
   delete myTargets[name]; saveMyTargets();
   if (activeStock === name) activeStock = getStocks()[0] || null;
   render();
@@ -1504,7 +1560,7 @@ function updateSuggestions() {
 }
 
 function exportJSON() {
-  const payload = { entries, myTargets, saved: new Date().toISOString() };
+  const payload = { entries, userEntries, myTargets, saved: new Date().toISOString() };
   dl(JSON.stringify(payload, null, 2), 'tp-tracker.json', 'application/json');
 }
 function importJSON(e) {
@@ -1514,6 +1570,7 @@ function importJSON(e) {
     try {
       const p = JSON.parse(r.result);
       if (p.entries) entries = p.entries;
+      if (p.userEntries) { userEntries = p.userEntries; saveUserEntries(); }
       if (p.myTargets) myTargets = p.myTargets;
       updateSuggestions();
       activeStock = getStocks()[0] || null;
@@ -2665,6 +2722,47 @@ function renderUpdatePanel() {
 
   updateSuggestions();
   selectStock('삼성전자');
+})();
+
+/* ── 사용자 데이터 병합 (localStorage + GitHub tp-user.json) ── */
+(async function(){
+  try {
+    const r = await fetch('https://raw.githubusercontent.com/whysosary-dot/tp-tracker/main/tp-user.json?t=' + Date.now(), { cache: 'no-store' });
+    if (r.ok) {
+      const d = await r.json();
+      if (Array.isArray(d.userEntries)) {
+        const ids = new Set(userEntries.map(e => e.id));
+        d.userEntries.forEach(e => { if (e && !ids.has(e.id)) { userEntries.push(e); ids.add(e.id); } });
+        saveUserEntries();
+      }
+      // 나의 목표가: 로컬 값 우선, GitHub에만 있는 종목은 가져옴
+      if (d.myTargets) { myTargets = Object.assign({}, d.myTargets, myTargets); saveMyTargets(); }
+    }
+  } catch (e) { /* 오프라인이거나 파일 없으면 무시 */ }
+  if (userEntries.length) {
+    const have = new Set(entries.map(e => e.id));
+    userEntries.forEach(e => { if (!have.has(e.id)) entries.push(e); });
+    entries.sort((a, b) => a.date.localeCompare(b.date));
+    updateSuggestions();
+    render();
+  }
+})();
+
+/* ── Stock Valuation 대시보드 통합 커밋 (iframe 내장 시) ── */
+(function(){
+  if (window.self === window.top) return;
+  // 대시보드 탭 안에서는 자체 커밋 버튼 숨김 (통합 버튼으로 일원화)
+  var _b = document.getElementById('tp-commit-btn'); if (_b) _b.style.display = 'none';
+  var _d = document.getElementById('tp-commit-menu-btn'); if (_d) _d.style.display = 'none';
+  window.addEventListener('message', async function(e){
+    if (e.origin !== 'https://whysosary-dot.github.io' || !e.data || !e.data.type) return;
+    if (e.data.type === 'sv-ping'){ e.source.postMessage({type:'sv-pong', repo:'tp-tracker'}, e.origin); return; }
+    if (e.data.type !== 'sv-commit') return;
+    var ok = true, msg = '커밋 완료';
+    try { msg = await ghCommitTpCore(); }
+    catch(err){ ok = false; msg = err.message || String(err); }
+    e.source.postMessage({type:'sv-commit-result', repo:'tp-tracker', ok:ok, msg:msg}, e.origin);
+  });
 })();
 </script>
 </body>
