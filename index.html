@@ -613,16 +613,11 @@
     </div>
     <div class="io-btns">
       <button class="btn btn-primary" id="tp-commit-btn" onclick="ghCommitTp()" title="추가한 엔트리·나의 목표가를 GitHub에 커밋">☁️ 커밋 & 푸시</button>
-      <button class="btn" onclick="document.getElementById('loadFile').click()">불러오기</button>
-      <input type="file" id="loadFile" accept=".json" style="display:none" onchange="importJSON(event)">
-      <button class="btn" onclick="exportCSV()">CSV 내보내기</button>
     </div>
     <button class="menu-toggle" onclick="toggleMenu(event)" aria-label="메뉴">⋮</button>
     <div class="io-dropdown" id="ioDropdown">
       <button class="btn btn-primary" id="tp-commit-menu-btn" onclick="ghCommitTp();closeMenu()">☁️ 커밋 & 푸시</button>
       <button class="btn" onclick="exportJSON();closeMenu()">JSON 내보내기</button>
-      <button class="btn" onclick="document.getElementById('loadFile').click();closeMenu()">불러오기</button>
-      <button class="btn" onclick="exportCSV();closeMenu()">CSV 내보내기</button>
     </div>
   </div>
 </div>
@@ -1562,29 +1557,6 @@ function updateSuggestions() {
 function exportJSON() {
   const payload = { entries, userEntries, myTargets, saved: new Date().toISOString() };
   dl(JSON.stringify(payload, null, 2), 'tp-tracker.json', 'application/json');
-}
-function importJSON(e) {
-  const f = e.target.files[0]; if (!f) return;
-  const r = new FileReader();
-  r.onload = () => {
-    try {
-      const p = JSON.parse(r.result);
-      if (p.entries) entries = p.entries;
-      if (p.userEntries) { userEntries = p.userEntries; saveUserEntries(); }
-      if (p.myTargets) myTargets = p.myTargets;
-      updateSuggestions();
-      activeStock = getStocks()[0] || null;
-      render();
-    } catch(err) { alert('파일 오류: ' + err.message); }
-  };
-  r.readAsText(f);
-  e.target.value = '';
-}
-function exportCSV() {
-  if (!entries.length) { alert('데이터 없음'); return; }
-  let csv = '종목,날짜,증권사,목표주가,출처\n';
-  entries.forEach(e => { csv += `${e.stock},${e.date},${e.broker},${e.tp},"${(e.source||'').replace(/"/g,'""')}"\n`; });
-  dl(csv, 'tp-tracker.csv', 'text/csv');
 }
 function dl(content, name, type) {
   const b = new Blob([content], {type: type+';charset=utf-8'});
