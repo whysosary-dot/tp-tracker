@@ -1585,6 +1585,10 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-07-23', items: [
+    { stock:'삼성SDI', broker:'신한투자증권', tp:700000, entryDate:'2026-07-20' },
+    { stock:'삼성SDI', broker:'분기컨센', tp:null, entryDate:'2026-07-23', note:'분기 컨센서스 보완 (q2r:36704, q2op:-744, q3r:39159, q3op:155, q4r:44731, q4op:1468)' },
+  ]},
   { date: '2026-07-22', items: [
     { stock:'한화엔진', broker:'다올투자증권', tp:91000, entryDate:'2026-07-21' },
     { stock:'시프트업', broker:'신영증권', tp:45000, entryDate:'2026-07-21' },
@@ -2637,6 +2641,7 @@ function renderUpdatePanel() {
     { date:'2026-06-25', broker:'NH투자증권', tp:800000, source:'https://comp.fnguide.com/SVO2/asp/SVD_Consensus.asp?pGB=1&gicode=A006400' },
     { date:'2026-06-26', broker:'미래에셋증권', tp:1000000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A006400', q2r:36704, q2op:-744, q3r:39159, q3op:155, q4r:44731, q4op:1468 },
     { date:'2026-07-22', broker:'신영증권', tp:830000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A006400', estYear:'2026E', q2r:36704, q2op:-744, q3r:39159, q3op:155, q4r:44731, q4op:1468 },
+    { date:'2026-07-20', broker:'신한투자증권', tp:700000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A006400', estYear:'2026E', q2r:36704, q2op:-744, q3r:39159, q3op:155, q4r:44731, q4op:1468 },
   ];
   sdi.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'삼성SDI', ...s }); });
 
