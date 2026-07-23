@@ -2101,7 +2101,7 @@ function renderUpdatePanel() {
       `<div class="update-entry" onclick="selectStock('${esc(it.stock)}');document.getElementById('updatePanel').classList.remove('open');">
         <span class="stock-badge">${it.stock}</span>
         <span class="broker-date">${it.broker} · ${it.entryDate}</span>
-        <span class="tp-value">${it.tp.toLocaleString()}원</span>
+        <span class="tp-value">${it.tp != null ? it.tp.toLocaleString() + '원' : '컨센서스 보완'}</span>
       </div>`
     ).join('');
     return `<div class="update-group">
