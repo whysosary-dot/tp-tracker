@@ -1,13 +1,12 @@
 {
-  "date": "2026-07-24",
+  "date": "2026-07-28",
   "add": {
+    "SK하이닉스": [
+      {"date":"2026-07-27","broker":"메리츠증권","tp":3100000,"source":"https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660","estYear":"2026E","q2r":82.6,"q2op":63.2,"q3r":100,"q3op":78.3,"q4r":109.8,"q4op":86.1}
+    ],
     "삼성전자": [
-      { "date": "2026-07-23", "broker": "KB증권", "tp": 600000,
-        "source": "https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930",
-        "estYear": "2026E" }
+      {"date":"2026-07-27","broker":"메리츠증권","tp":500000,"source":"https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930","estYear":"2026E","q2r":169.4,"q2op":85.5,"q3r":196.3,"q3op":106.0,"q4r":205.2,"q4op":114.4}
     ]
   },
-  "patch_last": {
-    "삼성전자": {"q2r": 169.4, "q2op": 85.5, "q3r": 196.3, "q3op": 106.0, "q4r": 205.2, "q4op": 114.4}
-  }
+  "patch_last": {}
 }
