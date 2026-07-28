@@ -1585,6 +1585,14 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-07-29', items: [
+    { stock:'시프트업', broker:'삼성증권', tp:28000, entryDate:'2026-07-28' },
+    { stock:'SK하이닉스', broker:'유진투자증권', tp:3700000, entryDate:'2026-07-28' },
+    { stock:'삼성전자', broker:'유진투자증권', tp:560000, entryDate:'2026-07-28' },
+    { stock:'삼성전자', broker:'분기컨센', tp:null, entryDate:'2026-07-29', note:'분기 컨센서스 보완 (q2r:169.4, q2op:85.5, q3r:196.3, q3op:106, q4r:205.2, q4op:114.4)' },
+    { stock:'SK하이닉스', broker:'분기컨센', tp:null, entryDate:'2026-07-29', note:'분기 컨센서스 보완 (q2r:82.6, q2op:63.2, q3r:100, q3op:78.3, q4r:109.8, q4op:86.1)' },
+    { stock:'시프트업', broker:'분기컨센', tp:null, entryDate:'2026-07-29', note:'분기 컨센서스 보완 (q2r:524, q2op:272, q3r:510, q3op:254, q4r:588, q4op:289)' },
+  ]},
   { date: '2026-07-28', items: [
     { stock:'SK하이닉스', broker:'메리츠증권', tp:3100000, entryDate:'2026-07-27' },
     { stock:'삼성전자', broker:'메리츠증권', tp:500000, entryDate:'2026-07-27' },
@@ -2242,6 +2250,7 @@ function renderUpdatePanel() {
     { date:'2026-06-25', broker:'다올투자증권', tp:585000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Consensus.asp?pGB=1&gicode=A005930', q2r:169.4, q2op:85.5, q3r:196.3, q3op:106, q4r:205.2, q4op:114.4 },
     { date:'2026-07-23', broker:'KB증권', tp:600000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930', estYear:'2026E', q2r:169.4, q2op:85.5, q3r:196.3, q3op:106, q4r:205.2, q4op:114.4 },
     { date:'2026-07-27', broker:'메리츠증권', tp:500000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930', estYear:'2026E', q2r:169.4, q2op:85.5, q3r:196.3, q3op:106, q4r:205.2, q4op:114.4 },
+    { date:'2026-07-28', broker:'유진투자증권', tp:560000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930', estYear:'2026E', q2r:169.4, q2op:85.5, q3r:196.3, q3op:106, q4r:205.2, q4op:114.4 },
   ];
   samsung.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'삼성전자', ...s }); });
 
@@ -2361,6 +2370,7 @@ function renderUpdatePanel() {
     { date:'2026-06-25', broker:'다올투자증권', tp:4200000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Consensus.asp?pGB=1&gicode=A000660', q2r:82.6, q2op:63.2, q3r:100, q3op:78.3, q4r:109.8, q4op:86.1 },
     { date:'2026-07-22', broker:'KB증권', tp:4200000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660', estYear:'2026E', q2r:82.6, q2op:63.2, q3r:100, q3op:78.3, q4r:109.8, q4op:86.1 },
     { date:'2026-07-27', broker:'메리츠증권', tp:3100000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660', estYear:'2026E', q2r:82.6, q2op:63.2, q3r:100, q3op:78.3, q4r:109.8, q4op:86.1 },
+    { date:'2026-07-28', broker:'유진투자증권', tp:3700000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660', estYear:'2026E', q2r:82.6, q2op:63.2, q3r:100, q3op:78.3, q4r:109.8, q4op:86.1 },
   ];
   skh.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'SK하이닉스', ...s }); });
 
@@ -2524,6 +2534,7 @@ function renderUpdatePanel() {
     { date:'2026-06-15', broker:'키움증권', tp:65000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Consensus.asp?pGB=1&gicode=A462870' },
     { date:'2026-06-30', broker:'하나증권', tp:45000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A462870', q2r:524, q2op:272, q3r:510, q3op:254, q4r:588, q4op:289 },
     { date:'2026-07-21', broker:'신영증권', tp:45000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A462870', estYear:'2026E', q2r:524, q2op:272, q3r:510, q3op:254, q4r:588, q4op:289 },
+    { date:'2026-07-28', broker:'삼성증권', tp:28000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A462870', estYear:'2026E', q2r:524, q2op:272, q3r:510, q3op:254, q4r:588, q4op:289 },
   ];
   shift.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'시프트업', ...s }); });
 
