@@ -1,19 +1,52 @@
 {
-  "date": "2026-07-29",
+  "date": "2026-07-31",
   "add": {
-    "시프트업": [
-      { "date": "2026-07-28", "broker": "삼성증권", "tp": 28000, "source": "https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A462870", "estYear": "2026E" }
-    ],
     "SK하이닉스": [
-      { "date": "2026-07-28", "broker": "유진투자증권", "tp": 3700000, "source": "https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A000660", "estYear": "2026E" }
+      { "date": "2026-07-30", "broker": "NH투자증권", "tp": 3400000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "키움증권", "tp": 2200000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "한국투자증권", "tp": 4700000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "대신증권", "tp": 3200000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "IBK투자증권", "tp": 4000000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "DB증권", "tp": 2000000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "삼성증권", "tp": 3000000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "KB증권", "tp": 4200000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "하나증권", "tp": 3600000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "SK증권", "tp": 4000000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "교보증권", "tp": 4000000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "신한투자증권", "tp": 2700000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "한화투자증권", "tp": 3150000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "다올투자증권", "tp": 4200000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-29", "broker": "미래에셋증권", "tp": 2800000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-29", "broker": "DS투자증권", "tp": 3100000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-29", "broker": "BNK투자증권", "tp": 1480000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-29", "broker": "메리츠증권", "tp": 3100000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" },
+      { "date": "2026-07-27", "broker": "메리츠증권", "tp": 3100000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear": "2026E" }
     ],
     "삼성전자": [
-      { "date": "2026-07-28", "broker": "유진투자증권", "tp": 560000, "source": "https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A005930", "estYear": "2026E" }
+      { "date": "2026-07-30", "broker": "DS투자증권", "tp": 530000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "BNK투자증권", "tp": 300000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930", "estYear": "2026E" },
+      { "date": "2026-07-29", "broker": "미래에셋증권", "tp": 370000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930", "estYear": "2026E" },
+      { "date": "2026-07-27", "broker": "메리츠증권", "tp": 500000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930", "estYear": "2026E" }
+    ],
+    "HD한국조선해양": [
+      { "date": "2026-07-30", "broker": "메리츠증권", "tp": 600000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A009540", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "SK증권", "tp": 640000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A009540", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "삼성증권", "tp": 530000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A009540", "estYear": "2026E" },
+      { "date": "2026-07-30", "broker": "KB증권", "tp": 500000, "source": "https://wcomp.fnguide.com/Report/ReportSummary?gicode=A009540", "estYear": "2026E" }
     ]
   },
   "patch_last": {
-    "삼성전자": { "q2r": 169.4, "q2op": 85.5, "q3r": 196.3, "q3op": 106, "q4r": 205.2, "q4op": 114.4 },
-    "SK하이닉스": { "q2r": 82.6, "q2op": 63.2, "q3r": 100, "q3op": 78.3, "q4r": 109.8, "q4op": 86.1 },
-    "시프트업": { "q2r": 524, "q2op": 272, "q3r": 510, "q3op": 254, "q4r": 588, "q4op": 289 }
+    "삼성전자": { "q2r": 171.5, "q2op": 89.5, "q3r": 207.8, "q3op": 113.6, "q4r": 218.8, "q4op": 124.2 },
+    "SK하이닉스": { "q2r": 79.3, "q2op": 60.5, "q3r": 100.7, "q3op": 78.7, "q4r": 112.6, "q4op": 88.6 },
+    "HD한국조선해양": { "q2r": 8.9, "q2op": 1.6, "q3r": 8.5, "q3op": 1.6, "q4r": 9.1, "q4op": 1.7 },
+    "시프트업": { "q2r": 532, "q2op": 280, "q3r": 517, "q3op": 259, "q4r": 607, "q4op": 308 },
+    "한화엔진": { "q2r": 3834, "q2op": 558, "q3r": 3905, "q3op": 620, "q4r": 4453, "q4op": 695 },
+    "SAMG엔터": { "q2r": 400, "q2op": 60, "q3r": 350, "q3op": 40, "q4r": 540, "q4op": 130 },
+    "네오위즈": { "q2r": 1048, "q2op": 96, "q3r": 1073, "q3op": 101, "q4r": 1089, "q4op": 99 },
+    "DN오토모티브": { "q2r": 11320, "q2op": 1610, "q3r": 11220, "q3op": 1570, "q4r": 11680, "q4op": 1610 },
+    "엠앤씨솔루션": { "q2r": 940, "q2op": 135, "q3r": 973, "q3op": 142, "q4r": 1799, "q4op": 280 },
+    "삼성SDI": { "q2r": 37688, "q2op": 2038, "q3r": 39619, "q3op": 499, "q4r": 45760, "q4op": 2024 },
+    "DB하이텍": { "q2r": 3911, "q2op": 886, "q3r": 4158, "q3op": 1030, "q4r": 4296, "q4op": 1113 },
+    "신흥에스이씨": { "q2r": 1260, "q2op": 45, "q3r": 1319, "q3op": 62, "q4r": 1482, "q4op": 91 }
   }
 }
