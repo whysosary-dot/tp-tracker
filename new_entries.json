@@ -1,71 +1,15 @@
 {
-  "date": "2026-08-04",
+  "date": "2026-08-06",
   "add": {
     "한화엔진": [
-      { "date":"2026-08-03", "broker":"메리츠증권", "tp":100000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A082740", "estYear":"2026E" },
-      { "date":"2026-08-03", "broker":"한국투자증권", "tp":110000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A082740", "estYear":"2026E", "q2r":3622, "q2op":379, "q3r":3837, "q3op":596, "q4r":4405, "q4op":673 },
-      { "date":"2026-07-31", "broker":"해당기업 IR팀", "tp":null, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A082740" },
-      { "date":"2026-07-30", "broker":"삼성증권", "tp":600000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A082740" }
-    ],
-    "SK하이닉스": [
-      { "date":"2026-08-03", "broker":"현대차증권", "tp":3300000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear":"2026E" },
-      { "date":"2026-08-03", "broker":"SK증권", "tp":4000000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660", "estYear":"2026E", "q2r":79.32, "q2op":60.54, "q3r":100.29, "q3op":78.70, "q4r":112.42, "q4op":88.80 },
-      { "date":"2026-07-31", "broker":"유진투자증권", "tp":3700000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"삼성증권", "tp":3000000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"신한투자증권", "tp":2700000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"DB증권", "tp":2000000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"한화투자증권", "tp":3150000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"교보증권", "tp":4000000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"IBK투자증권", "tp":4000000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"NH투자증권", "tp":3400000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"키움증권", "tp":2200000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"대신증권", "tp":3200000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"다올투자증권", "tp":4200000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"KB증권", "tp":4200000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"한국투자증권", "tp":4700000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" },
-      { "date":"2026-07-30", "broker":"하나증권", "tp":3600000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660" }
+      { "date":"2026-08-05", "broker":"신한투자증권", "tp":53000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A082740", "estYear":"2026E" }
     ],
     "삼성SDI": [
-      { "date":"2026-08-03", "broker":"DS투자증권", "tp":840000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400", "estYear":"2026E", "q2r":37688, "q2op":2038, "q3r":39846, "q3op":845, "q4r":45514, "q4op":2156 },
-      { "date":"2026-07-31", "broker":"삼성증권", "tp":550000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" },
-      { "date":"2026-07-31", "broker":"LS증권", "tp":402000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" },
-      { "date":"2026-07-31", "broker":"DB증권", "tp":680000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" },
-      { "date":"2026-07-31", "broker":"신영증권", "tp":700000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" },
-      { "date":"2026-07-31", "broker":"대신증권", "tp":690000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" },
-      { "date":"2026-07-31", "broker":"미래에셋증권", "tp":1000000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" },
-      { "date":"2026-07-31", "broker":"NH투자증권", "tp":600000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" },
-      { "date":"2026-07-31", "broker":"IBK투자증권", "tp":800000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" },
-      { "date":"2026-07-31", "broker":"키움증권", "tp":670000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" },
-      { "date":"2026-07-31", "broker":"한국투자증권", "tp":600000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" },
-      { "date":"2026-07-31", "broker":"신한투자증권", "tp":620000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" },
-      { "date":"2026-07-31", "broker":"iM증권", "tp":590000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" },
-      { "date":"2026-07-31", "broker":"하나증권", "tp":667000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400" }
-    ],
-    "삼성전자": [
-      { "date":"2026-07-31", "broker":"신한투자증권", "tp":450000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"삼성증권", "tp":400000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"DB증권", "tp":360000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"교보증권", "tp":500000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"현대차증권", "tp":440000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"IBK투자증권", "tp":460000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"유진투자증권", "tp":560000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"한화투자증권", "tp":580000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"NH투자증권", "tp":530000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"다올투자증권", "tp":585000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"KB증권", "tp":600000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"키움증권", "tp":390000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"한국투자증권", "tp":650000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"하나증권", "tp":480000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-31", "broker":"대신증권", "tp":560000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-30", "broker":"메리츠증권", "tp":500000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-30", "broker":"BNK투자증권", "tp":300000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" },
-      { "date":"2026-07-30", "broker":"DS투자증권", "tp":530000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930" }
-    ],
-    "HD한국조선해양": [
-      { "date":"2026-07-30", "broker":"삼성증권", "tp":530000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A009540" },
-      { "date":"2026-07-30", "broker":"KB증권", "tp":500000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A009540" },
-      { "date":"2026-07-30", "broker":"메리츠증권", "tp":600000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A009540" },
-      { "date":"2026-07-30", "broker":"SK증권", "tp":640000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A009540" }
+      { "date":"2026-08-05", "broker":"유진투자증권", "tp":500000, "source":"https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400", "estYear":"2026E" }
     ]
+  },
+  "patch_last": {
+    "한화엔진": { "q2r":3622, "q2op":379, "q3r":3857, "q3op":607, "q4r":4466, "q4op":701 },
+    "삼성SDI": { "q2r":37688, "q2op":2038, "q3r":40230, "q3op":936, "q4r":45888, "q4op":2219 }
   }
 }

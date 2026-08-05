@@ -1585,6 +1585,12 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-08-06', items: [
+    { stock:'한화엔진', broker:'신한투자증권', tp:53000, entryDate:'2026-08-05' },
+    { stock:'삼성SDI', broker:'유진투자증권', tp:500000, entryDate:'2026-08-05' },
+    { stock:'한화엔진', broker:'분기컨센', tp:null, entryDate:'2026-08-06', note:'분기 컨센서스 보완 (q2r:3622, q2op:379, q3r:3857, q3op:607, q4r:4466, q4op:701)' },
+    { stock:'삼성SDI', broker:'분기컨센', tp:null, entryDate:'2026-08-06', note:'분기 컨센서스 보완 (q2r:37688, q2op:2038, q3r:40230, q3op:936, q4r:45888, q4op:2219)' },
+  ]},
   { date: '2026-08-04', items: [
     { stock:'한화엔진', broker:'메리츠증권', tp:100000, entryDate:'2026-08-03' },
     { stock:'한화엔진', broker:'한국투자증권', tp:110000, entryDate:'2026-08-03' },
@@ -2611,6 +2617,7 @@ function renderUpdatePanel() {
     { date:'2026-08-03', broker:'한국투자증권', tp:110000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A082740', estYear:'2026E', q2r:3622, q2op:379, q3r:3837, q3op:596, q4r:4405, q4op:673 },
     { date:'2026-07-31', broker:'해당기업 IR팀', source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A082740' },
     { date:'2026-07-30', broker:'삼성증권', tp:600000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A082740' },
+    { date:'2026-08-05', broker:'신한투자증권', tp:53000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A082740', estYear:'2026E', q2r:3622, q2op:379, q3r:3857, q3op:607, q4r:4466, q4op:701 },
   ];
   hwe.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'한화엔진', ...s }); });
 
@@ -2796,6 +2803,7 @@ function renderUpdatePanel() {
     { date:'2026-07-31', broker:'신한투자증권', tp:620000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400' },
     { date:'2026-07-31', broker:'iM증권', tp:590000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400' },
     { date:'2026-07-31', broker:'하나증권', tp:667000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400' },
+    { date:'2026-08-05', broker:'유진투자증권', tp:500000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A006400', estYear:'2026E', q2r:37688, q2op:2038, q3r:40230, q3op:936, q4r:45888, q4op:2219 },
   ];
   sdi.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'삼성SDI', ...s }); });
 
