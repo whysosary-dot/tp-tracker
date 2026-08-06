@@ -1585,6 +1585,11 @@ document.querySelector('.add-form').addEventListener('keydown', e => { if (e.key
 
 // ── Update Log ──
 const updateLog = [
+  { date: '2026-08-07', items: [
+    { stock:'삼성전자', broker:'분기컨센', tp:null, entryDate:'2026-08-07', note:'분기 컨센서스 보완 (q2r:171.5, q2op:89.5, q3r:206.3, q3op:114, q4r:216.5, q4op:123.7)' },
+    { stock:'SK하이닉스', broker:'분기컨센', tp:null, entryDate:'2026-08-07', note:'분기 컨센서스 보완 (q2r:79.3, q2op:60.5, q3r:100.3, q3op:78.7, q4r:112.4, q4op:88.8)' },
+    { stock:'한라IMS', broker:'분기컨센', tp:null, entryDate:'2026-08-07', note:'분기 컨센서스 보완 (q2r:428, q2op:92)' },
+  ]},
   { date: '2026-08-06', items: [
     { stock:'한화엔진', broker:'신한투자증권', tp:53000, entryDate:'2026-08-05' },
     { stock:'삼성SDI', broker:'유진투자증권', tp:500000, entryDate:'2026-08-05' },
@@ -2345,7 +2350,7 @@ function renderUpdatePanel() {
     { date:'2026-07-31', broker:'한국투자증권', tp:650000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930' },
     { date:'2026-07-31', broker:'하나증권', tp:480000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930' },
     { date:'2026-07-31', broker:'대신증권', tp:560000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930' },
-    { date:'2026-07-30', broker:'메리츠증권', tp:500000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930' },
+    { date:'2026-07-30', broker:'메리츠증권', tp:500000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A005930', q2r:171.5, q2op:89.5, q3r:206.3, q3op:114, q4r:216.5, q4op:123.7 },
   ];
   samsung.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'삼성전자', ...s }); });
 
@@ -2486,7 +2491,7 @@ function renderUpdatePanel() {
     { date:'2026-07-29', broker:'메리츠증권', tp:3100000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660', estYear:'2026E', q2r:79.3, q2op:60.5, q3r:100.7, q3op:78.7, q4r:112.6, q4op:88.6 },
     { date:'2026-08-03', broker:'현대차증권', tp:3300000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660', estYear:'2026E' },
     { date:'2026-08-03', broker:'SK증권', tp:4000000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660', estYear:'2026E', q2r:79.32, q2op:60.54, q3r:100.29, q3op:78.7, q4r:112.42, q4op:88.8 },
-    { date:'2026-07-31', broker:'유진투자증권', tp:3700000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660' },
+    { date:'2026-07-31', broker:'유진투자증권', tp:3700000, source:'https://wcomp.fnguide.com/Report/ReportSummary?gicode=A000660', q2r:79.3, q2op:60.5, q3r:100.3, q3op:78.7, q4r:112.4, q4op:88.8 },
   ];
   skh.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'SK하이닉스', ...s }); });
 
@@ -2681,7 +2686,7 @@ function renderUpdatePanel() {
   // ── 한라IMS (092460) ──
   const halla = [
     { date:'2025-09-08', broker:'신영증권', tp:26000, source:'https://www.etoday.co.kr/news/view/2503999' },
-    { date:'2025-12-08', broker:'신영증권', tp:28000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A092460' },
+    { date:'2025-12-08', broker:'신영증권', tp:28000, source:'https://comp.fnguide.com/SVO2/ASP/SVD_Report_Summary.asp?pGB=1&gicode=A092460', q2r:428, q2op:92 },
   ];
   halla.forEach(s => { entries.push({ id: Date.now() + Math.random(), stock:'한라IMS', ...s }); });
 
